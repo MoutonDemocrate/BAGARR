@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://du2cipcel4p31"]
+
+[ext_resource type="PackedScene" uid="uid://bevegj2ynep6w" path="res://scenes/player/player.tscn" id="1_8trdl"]
+[ext_resource type="Script" uid="uid://dq04ixhqvnnuk" path="res://scenes/arena/arena.gd" id="1_jx0ua"]
+[ext_resource type="Script" uid="uid://hhoferg6cl0b" path="res://scenes/arena/arena_camera.gd" id="2_5tue2"]
+[ext_resource type="Shader" uid="uid://bglc0kf54ejpl" path="res://shader/arena.gdshader" id="3_5tue2"]
+[ext_resource type="Script" uid="uid://qiok42li5a3g" path="res://scenes/arena/grid_rect.gd" id="4_aj7ud"]
+[ext_resource type="PackedScene" uid="uid://bdsc1k6sio47u" path="res://scenes/arena/arena_ui_layer.tscn" id="5_asdgj"]
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_e05a3"]
+target_nodepath = NodePath("../IKTargetL")
+joint_one_bone_idx = 2
+joint_one_bone2d_node = NodePath("base/arm_l")
+joint_two_bone_idx = 3
+joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_wl4x5"]
+target_nodepath = NodePath("../IKTargetLR")
+flip_bend_direction = true
+joint_one_bone_idx = 5
+joint_one_bone2d_node = NodePath("base/arm_r")
+joint_two_bone_idx = 6
+joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_jx0ua"]
+resource_local_to_scene = true
+enabled = true
+modification_count = 2
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_e05a3")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_wl4x5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8trdl"]
+shader = ExtResource("3_5tue2")
+shader_parameter/period = 1.0
+shader_parameter/thickness = 2.0
+shader_parameter/min_px = 1.0
+shader_parameter/min_cell_px = 16.0
+shader_parameter/subdivision = 2.0
+shader_parameter/background_color = Color(0.49832904, 0.4751041, 0.4380019, 1)
+shader_parameter/grid_color = Color(0.62504125, 0.6482309, 0.68512, 1)
+
+[node name="Arena" type="Node2D" unique_id=281390857 node_paths=PackedStringArray("p1", "p2", "p1_start_pos", "p2_start_pos", "camera", "ui_layer", "ui_anim_player", "round_label", "round_number_label", "round_end", "re_character_label", "re_player_label", "side_p1", "side_p2")]
+script = ExtResource("1_jx0ua")
+p1 = NodePath("Player1")
+p2 = NodePath("Player2")
+p1_start_pos = NodePath("P1StartPos")
+p2_start_pos = NodePath("P2StartPos")
+camera = NodePath("Camera2D")
+ui_layer = NodePath("UILayer")
+ui_anim_player = NodePath("UILayer/AnimationPlayer")
+round_label = NodePath("UILayer/CenterContainer/RoundLabel")
+round_number_label = NodePath("UILayer/CenterContainer/RoundLabel/HBoxContainer/Number")
+round_end = NodePath("UILayer/CenterContainer/RoundEnd")
+re_character_label = NodePath("UILayer/CenterContainer/RoundEnd/CharacterName")
+re_player_label = NodePath("UILayer/CenterContainer/RoundEnd/Player")
+side_p1 = NodePath("UILayer/SideP1")
+side_p2 = NodePath("UILayer/SideP2")
+
+[node name="Player1" parent="." unique_id=1400576666 node_paths=PackedStringArray("enemy") instance=ExtResource("1_8trdl")]
+position = Vector2(-1500, 0)
+enemy = NodePath("../Player2")
+
+[node name="Skeleton2D" parent="Player1" index="1" unique_id=1726939152]
+modification_stack = SubResource("SkeletonModificationStack2D_jx0ua")
+
+[node name="forearm_l" parent="Player1/Skeleton2D/base/arm_l" parent_id_path=PackedInt32Array(1400576666, 985990871) index="0" unique_id=317959600]
+rotation = -2.0821942e-06
+scale = Vector2(0.9999978, 0.9999978)
+
+[node name="forearm_r" parent="Player1/Skeleton2D/base/arm_r" parent_id_path=PackedInt32Array(1400576666, 1410894329) index="0" unique_id=893445723]
+rotation = 2.1139806e-06
+scale = Vector2(0.9999978, 0.9999978)
+
+[node name="Player2" parent="." unique_id=929681214 node_paths=PackedStringArray("enemy") instance=ExtResource("1_8trdl")]
+position = Vector2(1500, 0)
+rotation = 3.1415927
+p = 2
+enemy = NodePath("../Player1")
+
+[node name="P1StartPos" type="Marker2D" parent="." unique_id=227442143]
+position = Vector2(-1500, 0)
+
+[node name="P2StartPos" type="Marker2D" parent="." unique_id=2036758675]
+position = Vector2(1500, 0)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=572263051 node_paths=PackedStringArray("p1", "p2")]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+script = ExtResource("2_5tue2")
+p1 = NodePath("../Player1")
+p2 = NodePath("../Player2")
+
+[node name="GridRect" type="ColorRect" parent="Camera2D" unique_id=1790843406]
+z_index = -51
+material = SubResource("ShaderMaterial_8trdl")
+offset_left = -1152.0
+offset_top = -648.0
+offset_right = 1152.0
+offset_bottom = 648.0
+scale = Vector2(10, 10)
+pivot_offset = Vector2(1152, 648)
+script = ExtResource("4_aj7ud")
+
+[node name="UILayer" parent="." unique_id=1441475818 instance=ExtResource("5_asdgj")]
+follow_viewport_enabled = false
+
+[node name="SideP1" parent="UILayer" index="0" unique_id=45441193 node_paths=PackedStringArray("player")]
+player = NodePath("../../Player1")
+
+[node name="SideP2" parent="UILayer" index="1" unique_id=1414005011 node_paths=PackedStringArray("player")]
+player = NodePath("../../Player2")
+
+[editable path="Player1"]
+[editable path="UILayer"]

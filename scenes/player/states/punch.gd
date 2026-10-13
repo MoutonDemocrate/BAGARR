@@ -1,0 +1,80 @@
+extends PhysicsState
+
+@export var fist_area_l : Area2D
+@export var fist_area_r : Area2D
+
+var time_spent : float = 0.0
+var flip : bool = false
+
+var punch_next : bool = false
+
+func _left(_new_state : State):
+	fist_area_l.monitoring = false
+	fist_area_r.monitoring = false
+	if anim_player.animation_finished.is_connected(_on_animation_finished) :
+		anim_player.animation_finished.disconnect(_on_animation_finished)
+
+func _entered(_old_state : State):
+	time_spent = 0.0
+	punch_next = false
+	flip = !flip
+
+	if not anim_player.animation_finished.is_connected(_on_animation_finished) :
+		anim_player.animation_finished.connect(_on_animation_finished)
+
+	get_tree().create_timer(0.3).timeout.connect(
+		func () :
+			if flip :
+				fist_area_r.monitoring = true
+			else:
+				fist_area_l.monitoring = true
+	)
+
+	# Small blend time so the punch does not get its first frames eaten.
+	anim_player.play("default/punch" + ("_r" if flip else "_l"), 0.05)
+
+func state_input(event: InputEvent) -> void: pass
+
+func state_physics(delta: float) -> void:
+	var velocity := player.velocity
+	var direction := player.direction
+
+	# Add the gravity.
+	velocity += player.get_gravity() * delta
+
+	direction = Input.get_vector(
+		replace_p("p&_left"),
+		replace_p("p&_right"),
+		replace_p("p&_up"),
+		replace_p("p&_down")
+	)
+	#print("Player ",p," : ", direction)
+	if direction:
+		velocity = direction * player.SPEED * 0.2
+	else:
+		velocity = lerp(velocity, Vector2.ZERO, 8.0 *delta)
+	player.look_at(player.enemy.position)
+
+	player.velocity = velocity
+	player.direction = direction
+	player.move_and_slide()
+
+	time_spent += delta
+
+	if Input.is_action_just_pressed(replace_p("p&_punch")) and not punch_next :
+		if time_spent >= anim_player.current_animation_length*0.8 :
+			print("Immediate punch !")
+			machine.change_state_from_name("Punch")
+			return
+		elif time_spent >= anim_player.current_animation_length/2.0 :
+			punch_next = true
+			print("Punch again !")
+
+
+func state_process(_delta: float) -> void: pass
+
+func _on_animation_finished(anim_name : StringName) -> void:
+	if punch_next :
+		machine.change_state_from_name("Punch")
+	else :
+		machine.change_state_from_name("Idle")

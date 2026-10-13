@@ -1,0 +1,287 @@
+[gd_scene format=3 uid="uid://bdsc1k6sio47u"]
+
+[ext_resource type="Texture2D" uid="uid://b5dyt522u34pa" path="res://icon.svg" id="1_r8c7s"]
+[ext_resource type="Script" uid="uid://bigbnklk52816" path="res://scenes/arena/PlayerSide.gd" id="1_xrql8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrql8"]
+bg_color = Color(1, 0, 0, 0.7764706)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r8c7s"]
+bg_color = Color(0.54071105, 0.40542558, 1, 0.7764706)
+
+[sub_resource type="Animation" id="Animation_reqhp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/RoundLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/RoundLabel:offset_transform_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/RoundEnd:offset_transform_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CenterContainer/RoundEnd:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_w8d12"]
+resource_name = "round_end"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/RoundEnd:offset_transform_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.9999999),
+"transitions": PackedFloat32Array(0.07965998, 43.713295, 0.07965998),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/RoundEnd:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_xrql8"]
+resource_name = "round_start"
+length = 2.3333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/RoundLabel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/RoundLabel:offset_transform_scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(0.07965998, 43.713295, 0.07965998),
+"update": 0,
+"values": [Vector2(1, 0), Vector2(1, 1), Vector2(0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_reqhp"]
+_data = {
+&"RESET": SubResource("Animation_reqhp"),
+&"round_end": SubResource("Animation_w8d12"),
+&"round_start": SubResource("Animation_xrql8")
+}
+
+[node name="UILayer" type="CanvasLayer" unique_id=1441475818]
+follow_viewport_enabled = true
+
+[node name="SideP1" type="VBoxContainer" parent="." unique_id=45441193 node_paths=PackedStringArray("health_bar", "special_bar", "player_icon")]
+offset_left = 26.0
+offset_top = 406.0
+offset_right = 239.0
+offset_bottom = 1064.0
+script = ExtResource("1_xrql8")
+health_bar = NodePath("HBoxContainer/HealthBar")
+special_bar = NodePath("HBoxContainer/SpecialBar")
+player_icon = NodePath("PlayerIcon")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SideP1" unique_id=873351756]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HealthBar" type="ProgressBar" parent="SideP1/HBoxContainer" unique_id=980678758]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+offset_transform_rotation = -1.3473942
+offset_transform_visual_only = false
+theme_override_styles/fill = SubResource("StyleBoxFlat_xrql8")
+value = 60.0
+fill_mode = 3
+show_percentage = false
+
+[node name="SpecialBar" type="ProgressBar" parent="SideP1/HBoxContainer" unique_id=1569448884]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+offset_transform_rotation = -1.3473942
+offset_transform_visual_only = false
+theme_override_styles/fill = SubResource("StyleBoxFlat_r8c7s")
+value = 30.0
+fill_mode = 3
+show_percentage = false
+
+[node name="PlayerIcon" type="TextureRect" parent="SideP1" unique_id=101770886]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.35
+texture = ExtResource("1_r8c7s")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="SideP2" type="VBoxContainer" parent="." unique_id=1414005011 node_paths=PackedStringArray("health_bar", "special_bar", "player_icon")]
+offset_left = 1685.0
+offset_top = 18.0
+offset_right = 1898.0
+offset_bottom = 676.0
+script = ExtResource("1_xrql8")
+health_bar = NodePath("HBoxContainer/HealthBar")
+special_bar = NodePath("HBoxContainer/SpecialBar")
+player_icon = NodePath("PlayerIcon")
+
+[node name="PlayerIcon" type="TextureRect" parent="SideP2" unique_id=89270292]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.35
+texture = ExtResource("1_r8c7s")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SideP2" unique_id=364836440]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+
+[node name="HealthBar" type="ProgressBar" parent="SideP2/HBoxContainer" unique_id=1267759143]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+offset_transform_rotation = -1.3473942
+offset_transform_visual_only = false
+theme_override_styles/fill = SubResource("StyleBoxFlat_xrql8")
+value = 60.0
+fill_mode = 2
+show_percentage = false
+
+[node name="SpecialBar" type="ProgressBar" parent="SideP2/HBoxContainer" unique_id=1348845832]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+offset_transform_rotation = -1.3473942
+offset_transform_visual_only = false
+theme_override_styles/fill = SubResource("StyleBoxFlat_r8c7s")
+value = 30.0
+fill_mode = 2
+show_percentage = false
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1980928415]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RoundLabel" type="VBoxContainer" parent="CenterContainer" unique_id=20471696]
+visible = false
+layout_mode = 2
+offset_transform_enabled = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/RoundLabel" unique_id=1372447129]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Round" type="Label" parent="CenterContainer/RoundLabel/HBoxContainer" unique_id=1880350644]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "ROUND "
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Number" type="Label" parent="CenterContainer/RoundLabel/HBoxContainer" unique_id=498482700]
+layout_mode = 2
+theme_override_font_sizes/font_size = 200
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="OutOf" type="Label" parent="CenterContainer/RoundLabel" unique_id=768601224]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Out Of 5"
+horizontal_alignment = 1
+
+[node name="RoundEnd" type="VBoxContainer" parent="CenterContainer" unique_id=1841551841]
+visible = false
+layout_mode = 2
+offset_transform_enabled = true
+
+[node name="RoundGoesTo" type="Label" parent="CenterContainer/RoundEnd" unique_id=744749738]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Round goes to"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="CharacterName" type="Label" parent="CenterContainer/RoundEnd" unique_id=1810467961]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Monsieur Bagarr"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Player" type="Label" parent="CenterContainer/RoundEnd" unique_id=1843577612]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Player1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=944265752]
+libraries/ = SubResource("AnimationLibrary_reqhp")
