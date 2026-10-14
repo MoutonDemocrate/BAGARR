@@ -13,13 +13,12 @@ func _entered(old_state : State):
 	time_spent = 0.0
 	anim_player.play("default/idle", 0.2)
 
-func state_input(event: InputEvent) -> void:
+func state_input(_event: InputEvent) -> void:
 	pass
 
 func state_physics(delta: float) -> void:
 	var velocity := player.velocity
 	var direction := player.direction
-	var p := player.p
 
 	# Add the gravity.
 	velocity += player.get_gravity() * delta

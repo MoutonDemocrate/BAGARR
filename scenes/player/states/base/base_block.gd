@@ -1,4 +1,5 @@
-extends PhysicsState
+extends BlockPart
+class_name BaseBlock
 
 var time_spent : float = 0.0
 
@@ -10,12 +11,11 @@ func _entered(_old_state : State):
 	get_tree().create_timer(0.1).timeout.connect(
 		func () : player.is_blocking = true)
 
-func state_input(event: InputEvent) -> void: pass
+func state_input(_event: InputEvent) -> void: pass
 
 func state_physics(delta: float) -> void:
 	var velocity := player.velocity
 	var direction := player.direction
-	var p := player.p
 
 	# Add the gravity.
 	velocity += player.get_gravity()/2.0 * delta

@@ -1,4 +1,5 @@
-extends PhysicsState
+extends DodgePart
+class_name BaseDodge
 
 const DURATION : float = 0.5
 const INVINCIBLE_DURATION : float = 0.4
@@ -33,7 +34,7 @@ func _entered(_old_state : State):
 
 	anim_player.play("default/dodge", 0.1)
 
-func state_input(event: InputEvent) -> void: pass
+func state_input(_event: InputEvent) -> void: pass
 
 func state_physics(delta: float) -> void:
 	var velocity := player.velocity

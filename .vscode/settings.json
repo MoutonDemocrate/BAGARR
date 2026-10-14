@@ -1,0 +1,6 @@
+{
+    "sarif-viewer.connectToGithubCodeScanning": "off",
+    "files.exclude": {
+        "**/*.uid": true
+    }
+}

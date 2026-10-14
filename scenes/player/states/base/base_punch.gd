@@ -1,4 +1,5 @@
-extends PhysicsState
+extends PunchPart
+class_name BasePunch
 
 @export var fist_area_l : Area2D
 @export var fist_area_r : Area2D
