@@ -43,11 +43,6 @@ var direction : Vector2
 
 func _ready() -> void:
 	reset()
-
-	fist_area_l.body_entered.connect(on_fist_body_hit)
-	fist_area_r.body_entered.connect(on_fist_body_hit)
-	fist_area_l.area_entered.connect(on_fist_area_hit)
-	fist_area_r.area_entered.connect(on_fist_area_hit)
 	fist_area_l.monitoring = false
 	fist_area_r.monitoring = false
 
@@ -58,27 +53,6 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	fsm.machine_physics(delta)
-
-func on_self_hit(damage:float) -> void:
-	if is_blocking or is_dodging :
-		print("P",p," ", "dodged" if is_dodging else "blocked", " !")
-		return
-	health -= damage
-
-func on_fist_body_hit(body:PhysicsBody2D) -> void:
-	if body == self :
-		return
-	elif body == enemy :
-		print("P",p," hit ", enemy)
-		enemy.on_self_hit(10.0)
-
-func on_fist_area_hit(area:Area2D) -> void:
-	pass
-	#if area.name.to_lower().contains("fist") :
-		#if (area) == enemy :
-			#print("P",p," hit ", enemy, "'s fists !")
-			#if enemy.is_blocking :
-				#enemy.on_self_hit(10.0)
 
 func reset() -> void:
 	health = 100.0

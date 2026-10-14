@@ -1,0 +1,2 @@
+extends MechanicPart
+class_name BaseMechanic
