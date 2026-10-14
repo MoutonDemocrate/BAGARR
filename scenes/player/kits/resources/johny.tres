@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Kit" format=3 uid="uid://crxvpfdcwyfty"]
+
+[ext_resource type="Script" uid="uid://rsfdm2htetm7" path="res://scenes/player/kits/kit.gd" id="1_28gcc"]
+[ext_resource type="Script" uid="uid://cd03fumoulrmo" path="res://scenes/player/states/base/base_block.gd" id="1_xt4jg"]
+[ext_resource type="Script" uid="uid://ewpwnfviojs8" path="res://scenes/player/states/base/base_dodge.gd" id="2_2s7wi"]
+[ext_resource type="Script" uid="uid://cnfksywejcnpl" path="res://scenes/player/states/base/base_mechanic.gd" id="3_vmcom"]
+[ext_resource type="Script" uid="uid://u6a3xqp0m63m" path="res://scenes/player/states/base/base_punch.gd" id="4_jmkee"]
+[ext_resource type="Script" uid="uid://c86eiw3id8k7c" path="res://scenes/player/states/base/base_special.gd" id="6_2s7wi"]
+
+[resource]
+script = ExtResource("1_28gcc")
+id = &"johny"
+kit_name = "Johny Bagarre"
+kit_desc = "No tricks, no tactics, no nothing. Fight like you mean it."
+mechanic = ExtResource("3_vmcom")
+block = ExtResource("1_xt4jg")
+dodge = ExtResource("2_2s7wi")
+punch = ExtResource("4_jmkee")
+special = ExtResource("6_2s7wi")
+metadata/_custom_type_script = "uid://rsfdm2htetm7"

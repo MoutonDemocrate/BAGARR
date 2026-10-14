@@ -5,9 +5,6 @@
 [ext_resource type="Script" uid="uid://d0dppemmdwx3v" path="res://scenes/player/bone_stretch_2d.gd" id="2_qek5x"]
 [ext_resource type="Script" uid="uid://dfkks3kkmpuwj" path="res://addons/Mouton_FSM/classes/PhysicsMachine.gd" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://q7hu6ywxmyka" path="res://scenes/player/states/idle.gd" id="4_lvxji"]
-[ext_resource type="Script" uid="uid://ouufmxlu5wng" path="res://scenes/player/states/block.gd" id="5_p47bc"]
-[ext_resource type="Script" uid="uid://bjvfwt34j7u4h" path="res://scenes/player/states/dodge.gd" id="6_0owmy"]
-[ext_resource type="Script" uid="uid://c26hckqwcml0e" path="res://scenes/player/states/punch.gd" id="7_qek5x"]
 
 [sub_resource type="Animation" id="Animation_qhqgy"]
 length = 0.001
@@ -452,16 +449,5 @@ metadata/_custom_type_script = "uid://dfkks3kkmpuwj"
 [node name="Idle" type="Node" parent="PhysicsMachine" unique_id=699940968]
 script = ExtResource("4_lvxji")
 metadata/_custom_type_script = "uid://q7hu6ywxmyka"
-
-[node name="Block" type="Node" parent="PhysicsMachine" unique_id=767795119]
-script = ExtResource("5_p47bc")
-
-[node name="Dodge" type="Node" parent="PhysicsMachine" unique_id=1128701858]
-script = ExtResource("6_0owmy")
-
-[node name="Punch" type="Node" parent="PhysicsMachine" unique_id=1148493782 node_paths=PackedStringArray("fist_area_l", "fist_area_r")]
-script = ExtResource("7_qek5x")
-fist_area_l = NodePath("../../Skeleton2D/base/arm_l/forearm_l/fist_l/Area2DFistL")
-fist_area_r = NodePath("../../Skeleton2D/base/arm_r/forearm_r/fist_r/Area2DFistR")
 
 [connection signal="ready" from="PhysicsMachine" to="PhysicsMachine" method="on_ready"]

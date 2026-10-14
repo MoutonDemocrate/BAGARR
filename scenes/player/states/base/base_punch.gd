@@ -1,17 +1,14 @@
 extends PunchPart
 class_name BasePunch
 
-@export var fist_area_l : Area2D
-@export var fist_area_r : Area2D
-
 var time_spent : float = 0.0
 var flip : bool = false
 
 var punch_next : bool = false
 
 func _left(_new_state : State):
-	fist_area_l.monitoring = false
-	fist_area_r.monitoring = false
+	player.fist_area_l.monitoring = false
+	player.fist_area_r.monitoring = false
 	if anim_player.animation_finished.is_connected(_on_animation_finished) :
 		anim_player.animation_finished.disconnect(_on_animation_finished)
 
@@ -26,15 +23,15 @@ func _entered(_old_state : State):
 	get_tree().create_timer(0.3).timeout.connect(
 		func () :
 			if flip :
-				fist_area_r.monitoring = true
+				player.fist_area_r.monitoring = true
 			else:
-				fist_area_l.monitoring = true
+				player.fist_area_l.monitoring = true
 	)
 
 	# Small blend time so the punch does not get its first frames eaten.
 	anim_player.play("default/punch" + ("_r" if flip else "_l"), 0.05)
 
-func state_input(event: InputEvent) -> void: pass
+func state_input(_event: InputEvent) -> void: pass
 
 func state_physics(delta: float) -> void:
 	var velocity := player.velocity

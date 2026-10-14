@@ -51,5 +51,7 @@ func state_physics(delta: float) -> void:
 		machine.change_state_from_name("Dodge")
 	elif Input.is_action_just_pressed(replace_p("p&_punch")) :
 		machine.change_state_from_name("Punch")
+	elif Input.is_action_just_pressed(replace_p("p&_special")) :
+		machine.change_state_from_name("Special")
 
 func state_process(_delta: float) -> void: pass

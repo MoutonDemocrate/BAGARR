@@ -46,6 +46,9 @@ func change_state_from_name(new_state_name : String) -> State :
 	for state in states :
 		if state.name == new_state_name :
 			that_one_state = state
+	if not that_one_state : 
+		push_error("State '", new_state_name, "' doesn't exist.\n",
+			"Acceptable states : ", str(states))
 	return change_state(that_one_state)
 
 # Changes the current state from state index, returns old state
