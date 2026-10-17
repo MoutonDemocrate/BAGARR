@@ -11,6 +11,10 @@ const MAX_DISTANCE := 1000.0
 var time_spent : float = 0.0
 var dodge_direction : Vector2 = Vector2.ZERO
 
+func dodged_damage(damage:Damage) -> Damage:
+	damage.value = 0.0
+	return damage
+
 func _left(_new_state : State): pass
 
 func _entered(_old_state : State):
@@ -22,13 +26,15 @@ func _entered(_old_state : State):
 
 	# The player always looks at his enemy, so his local +x axis points at him
 	# and his local +y axis is his own right side.
-	var side_axis := player.transform.y.normalized()
-	var side := _pick_side(side_axis)
+	var front := player.global_position.angle_to_point(player.enemy.global_position)
+	var angle := Input.get_vector(
+		replace_p("p&_left"),
+		replace_p("p&_right"),
+		replace_p("p&_up"),
+		replace_p("p&_down")
+	).angle()
+	dodge_direction = Vector2.from_angle(Utils.clamp_angle(angle, front + PI/6, front - PI/6))
 
-	var distance_to_enemy := (player.enemy.global_position - player.global_position).length()
-	distance_to_enemy = clampf(distance_to_enemy, 0.0, MAX_DISTANCE) / MAX_DISTANCE
-
-	dodge_direction = side_axis * side + player.transform.x.normalized() * lerpf(1.0, 0.0, distance_to_enemy**2.0)
 	player.direction = dodge_direction
 	player.velocity = dodge_direction * DODGE_SPEED
 
@@ -54,23 +60,7 @@ func state_physics(delta: float) -> void:
 
 	if time_spent >= DURATION :
 		machine.change_state_from_name("Idle")
+	elif time_spent >= DURATION * 0.5 and Input.is_action_just_pressed(replace_p("p&_punch")) :
+		machine.change_state_from_name("Punch")
 
 func state_process(_delta: float) -> void: pass
-
-# Returns +1.0 to dodge on the player's right, -1.0 on his left.
-func _pick_side(side_axis : Vector2) -> float:
-	var input := Input.get_vector(
-		replace_p("p&_left"),
-		replace_p("p&_right"),
-		replace_p("p&_up"),
-		replace_p("p&_down")
-	)
-
-	# Held stick first, last known movement second, right side as a last resort.
-	var lateral := input.dot(side_axis)
-	if absf(lateral) < 0.1 :
-		lateral = player.direction.dot(side_axis)
-	if absf(lateral) < 0.1 :
-		return 1.0
-
-	return signf(lateral)

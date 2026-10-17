@@ -28,8 +28,17 @@ func _entered(_old_state : State):
 				player.fist_area_l.monitoring = true
 	)
 
+	player.fist_area_l.body_entered.connect(on_area_hit)
+	player.fist_area_r.body_entered.connect(on_area_hit)
+
 	# Small blend time so the punch does not get its first frames eaten.
 	anim_player.play("default/punch" + ("_r" if flip else "_l"), 0.05)
+
+
+func on_area_hit(body: Node2D) -> void:
+	if body == player.enemy :
+		var damage := Damage.new(10.0)
+		player.enemy.hit(damage)
 
 func state_input(_event: InputEvent) -> void: pass
 

@@ -5,6 +5,7 @@ class_name Kit
 @export var kit_name : String	= "ERROR"
 @export_multiline("A quick description of the kit.")
 var kit_desc : String			= "This should not appear. Make a bug report."
+@export var special_name : String		= "This Should Not Appear !"
 
 @export var mechanic : Script
 @export var block : Script
@@ -86,7 +87,7 @@ static func load_all() -> Dictionary[StringName, Kit]:
 		if all_kits.has(key):
 			push_error("Duplicate kit id '%s'" % key)
 		all_kits[key] = kit
-	
+
 	return all_kits
 
 

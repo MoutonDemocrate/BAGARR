@@ -36,8 +36,12 @@ func state_physics(delta: float) -> void:
 		velocity = direction * player.SPEED * (ease(clampf(time_spent,0.0, 0.5)/0.5, 1.0) if easing else 1.0)
 	else:
 		velocity = lerp(velocity, Vector2.ZERO, 8.0 *delta)
-	player.look_at(player.enemy.position)
 
+	player.rotation = lerp_angle(
+		player.rotation,
+		player.global_position.angle_to_point(player.enemy.global_position),
+		delta * 2.0
+	)
 
 	player.velocity = velocity
 	player.direction = direction
@@ -52,6 +56,6 @@ func state_physics(delta: float) -> void:
 	elif Input.is_action_just_pressed(replace_p("p&_punch")) :
 		machine.change_state_from_name("Punch")
 	elif Input.is_action_just_pressed(replace_p("p&_special")) :
-		machine.change_state_from_name("Special")
+		player.use_special()
 
 func state_process(_delta: float) -> void: pass

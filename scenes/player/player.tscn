@@ -273,13 +273,66 @@ tracks/3/keys = {
 "values": [Vector2(168, 0), Vector2(311.0268, 1.2632888e-05), Vector2(311.0268, 1.2632888e-05), Vector2(168, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_qek5x"]
+resource_name = "special"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../IKTargetL:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.072499275, 0.13862193, 0.26666668, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(168, -185), Vector2(186, -143), Vector2(186, -143), Vector2(116, -152), Vector2(116, -152)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../IKTargetLR:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.072499245, 0.13862194, 0.26666668, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 0.17075492, 1),
+"update": 0,
+"values": [Vector2(168, 185), Vector2(-44, 170), Vector2(-44, 170), Vector2(800, 0), Vector2(800, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("base/arm_r/forearm_r:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.13333334, 0.26666668, 0.6666667, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 185), Vector2(0, 289), Vector2(0, 289), Vector2(0, 185)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("base/arm_r/forearm_r/fist_r:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.13333334, 0.26666668, 0.6666667, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(168, 0), Vector2(311.0268, 1.2632888e-05), Vector2(311.0268, 1.2632888e-05), Vector2(168, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
 _data = {
 &"block": SubResource("Animation_dqkch"),
 &"dodge": SubResource("Animation_p47bc"),
 &"idle": SubResource("Animation_g2els"),
 &"punch_l": SubResource("Animation_75vfm"),
-&"punch_r": SubResource("Animation_0owmy")
+&"punch_r": SubResource("Animation_0owmy"),
+&"special": SubResource("Animation_qek5x")
 }
 
 [sub_resource type="SkeletonModification2D" id="SkeletonModification2D_0owmy"]
@@ -400,8 +453,8 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="forearm_r" type="Bone2D" parent="Skeleton2D/base/arm_r" unique_id=893445723]
 position = Vector2(0, 185)
-rotation = -0.3768706
-scale = Vector2(0.9999762, 0.9999762)
+rotation = 1.5707965
+scale = Vector2(0.9999756, 0.9999756)
 rest = Transform2D(1, 0, 0, 1, 0, 185)
 metadata/_local_pose_override_enabled_ = true
 

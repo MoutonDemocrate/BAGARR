@@ -12,6 +12,7 @@ script = ExtResource("1_28gcc")
 id = &"johny"
 kit_name = "Johny Bagarre"
 kit_desc = "No tricks, no tactics, no nothing. Fight like you mean it."
+special_name = "Johny's Big Punch"
 mechanic = ExtResource("3_vmcom")
 block = ExtResource("1_xt4jg")
 dodge = ExtResource("2_2s7wi")

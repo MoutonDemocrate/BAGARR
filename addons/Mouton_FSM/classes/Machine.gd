@@ -28,7 +28,7 @@ func refetch_states() -> void :
 			states.append(child)
 	print("Refetched states : ",states)
 
-# Changes the current state, returns old state
+## Changes the current state, returns old state
 func change_state(new_state : State) -> State :
 	var old_state : State = current_state
 	current_state = new_state
@@ -40,20 +40,28 @@ func change_state(new_state : State) -> State :
 	new_state.state_entered.emit()
 	return current_state
 
-# Changes the current state from state namestring, returns old state
-func change_state_from_name(new_state_name : String) -> State :
+## Get a state from a string
+func get_state_from_name(state_name : String) -> State :
 	var that_one_state : State
 	for state in states :
-		if state.name == new_state_name :
+		if state.name == state_name :
 			that_one_state = state
-	if not that_one_state : 
-		push_error("State '", new_state_name, "' doesn't exist.\n",
+	if not that_one_state :
+		push_error("State '", state_name, "' doesn't exist.\n",
 			"Acceptable states : ", str(states))
-	return change_state(that_one_state)
+	return that_one_state
 
-# Changes the current state from state index, returns old state
+## Changes the current state from state namestring, returns old state
+func change_state_from_name(new_state_name : String) -> State :
+	return change_state(get_state_from_name(new_state_name))
+
+## Get a state from its index
+func get_state_from_index(state_index:int) -> State :
+	return states[state_index % len(states)]
+
+## Changes the current state from state index, returns old state
 func change_state_from_index(new_state_index : int) -> State :
-	return change_state(states[new_state_index % len(states)])
+	return change_state(get_state_from_index(new_state_index))
 
 ## Adds a new state. Returns the new state on success.
 func add_state(new_state : State) -> State :

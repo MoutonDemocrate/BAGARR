@@ -3,6 +3,11 @@ class_name Player
 
 @export_range(1,2,1) var p : int = 1
 @export var kit : Kit = load("res://scenes/player/kits/resources/johny.tres")
+var mechanic : MechanicPart
+var block_part : BlockPart
+var dodge_part : DodgePart
+var punch_part : PunchPart
+var special_part : SpecialPart
 
 @export var enemy : Player
 
@@ -14,6 +19,7 @@ class_name Player
 @export var target_ik_r : Marker2D
 @export var fist_area_l : Area2D
 @export var fist_area_r : Area2D
+
 
 var health := 100.0 :
 	set(new):
@@ -35,6 +41,8 @@ signal health_changed(old:float, new:float)
 signal special_gauge_changed(old:float, new:float)
 signal player_dead
 
+signal uses_special(player:Player, special_name:String)
+
 const SPEED = 800.0
 
 var is_dodging : bool = false
@@ -43,16 +51,23 @@ var is_blocking : bool = false
 var direction : Vector2
 
 func _ready() -> void:
-	reset()
-	fsm.add_child(kit.get_dodge())
-	fsm.add_child(kit.get_block())
-	fsm.add_child(kit.get_punch())
-	fsm.add_child(kit.get_special())
+	block_part = kit.get_block()
+	dodge_part = kit.get_dodge()
+	punch_part = kit.get_punch()
+	special_part = kit.get_special()
+
+	fsm.add_child(block_part)
+	fsm.add_child(dodge_part)
+	fsm.add_child(punch_part)
+	fsm.add_child(special_part)
 	fsm.refetch_states()
-	
+
+	mechanic = kit.get_mechanic()
+
 	fist_area_l.monitoring = false
 	fist_area_r.monitoring = false
 
+	reset()
 	self.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _input(event: InputEvent) -> void:
@@ -61,8 +76,45 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	fsm.machine_physics(delta)
 
+func use_special() -> void:
+	if special_gauge != 100.0 :
+		return
+
+	fsm.change_state_from_name("Special")
+	uses_special.emit(self, kit.special_name)
+
+func hit(damage:Damage) -> Damage.ReceivedStatus :
+	if Damage.DamageFlags.PURE in damage.flags :
+		health -= damage.value
+		return Damage.ReceivedStatus.TAKEN
+
+	if Damage.DamageFlags.ABSOLUTE in damage.flags :
+		health -= damage.value * mechanic.armor
+		return Damage.ReceivedStatus.TAKEN
+
+	if is_blocking :
+		damage = block_part.blocked_damage(damage)
+		if Damage.DamageFlags.IGNORES_BLOCK in damage.flags :
+			health -= damage.value * mechanic.armor
+			return Damage.ReceivedStatus.TAKEN
+		else :
+			health -= damage.value * mechanic.armor
+			return Damage.ReceivedStatus.BLOCKED
+
+	if is_dodging :
+		damage = dodge_part.dodged_damage(damage)
+		if Damage.DamageFlags.IGNORES_DODGE in damage.flags :
+			health -= damage.value * mechanic.armor
+			return Damage.ReceivedStatus.TAKEN
+		else :
+			health -= damage.value * mechanic.armor
+			return Damage.ReceivedStatus.DODGED
+
+	health -= damage.value * mechanic.armor
+	return Damage.ReceivedStatus.TAKEN
+
 func reset() -> void:
-	health = 100.0
+	health = mechanic.max_health
 	special_gauge = 100.0
 	match p :
 		1 : modulate = Color(1.0, 0.62, 0.791, 1.0)

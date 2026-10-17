@@ -39,6 +39,18 @@ shader_parameter/subdivision = 2.0
 shader_parameter/background_color = Color(0.49832904, 0.4751041, 0.4380019, 1)
 shader_parameter/grid_color = Color(0.62504125, 0.6482309, 0.68512, 1)
 
+[sub_resource type="Gradient" id="Gradient_jx0ua"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.2006079, 0.2431611, 0.3343465, 0.3586626, 0.3768997, 0.4620061, 0.5349544, 0.6200608, 0.69908816, 0.79027355)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.85404336, 0, 0, 0, 0.7790927, 0, 0, 0, 0.6923077, 0, 0, 0, 0.6, 0, 0, 0, 0.54230773, 0, 0, 0, 0.43076926, 0, 0, 0, 0.32307693, 0, 0, 0, 0.26923078, 0, 0, 0, 0.11538458, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jx0ua"]
+gradient = SubResource("Gradient_jx0ua")
+width = 2
+height = 256
+fill_to = Vector2(0, 0.5)
+repeat = 2
+
 [node name="Arena" type="Node2D" unique_id=281390857 node_paths=PackedStringArray("p1", "p2", "p1_start_pos", "p2_start_pos", "camera", "ui_layer", "ui_anim_player", "round_label", "round_number_label", "round_end", "re_character_label", "re_player_label", "side_p1", "side_p2")]
 script = ExtResource("1_jx0ua")
 p1 = NodePath("Player1")
@@ -83,12 +95,13 @@ position = Vector2(-1500, 0)
 [node name="P2StartPos" type="Marker2D" parent="." unique_id=2036758675]
 position = Vector2(1500, 0)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=572263051 node_paths=PackedStringArray("p1", "p2")]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=572263051 node_paths=PackedStringArray("p1", "p2", "special_effects", "special_label")]
 zoom = Vector2(0.5, 0.5)
-position_smoothing_enabled = true
 script = ExtResource("2_5tue2")
 p1 = NodePath("../Player1")
 p2 = NodePath("../Player2")
+special_effects = NodePath("CanvasLayer/SpecialEffects")
+special_label = NodePath("CanvasLayer/SpecialEffects/SpecialLabel")
 
 [node name="GridRect" type="ColorRect" parent="Camera2D" unique_id=1790843406]
 z_index = -51
@@ -100,6 +113,44 @@ offset_bottom = 648.0
 scale = Vector2(10, 10)
 pivot_offset = Vector2(1152, 648)
 script = ExtResource("4_aj7ud")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=193930222]
+
+[node name="SpecialEffects" type="Control" parent="Camera2D/CanvasLayer" unique_id=1206142003]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Vignette" type="TextureRect" parent="Camera2D/CanvasLayer/SpecialEffects" unique_id=1729132918]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 193.49487
+offset_top = 21.599518
+offset_right = 1689.4827
+offset_bottom = 1040.7365
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(1.6, 1.6)
+offset_transform_rotation = -0.2565634
+offset_transform_visual_only = false
+texture = SubResource("GradientTexture2D_jx0ua")
+
+[node name="SpecialLabel" type="Label" parent="Camera2D/CanvasLayer/SpecialEffects" unique_id=249631384]
+layout_mode = 0
+offset_left = 211.88634
+offset_top = 684.63104
+offset_right = 1695.8864
+offset_bottom = 1020.7116
+rotation = -0.080943435
+theme_override_font_sizes/font_size = 120
+text = "Special Attack Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="UILayer" parent="." unique_id=1441475818 instance=ExtResource("5_asdgj")]
 follow_viewport_enabled = false

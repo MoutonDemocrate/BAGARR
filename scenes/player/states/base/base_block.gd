@@ -3,6 +3,10 @@ class_name BaseBlock
 
 var time_spent : float = 0.0
 
+func blocked_damage(damage:Damage) -> Damage:
+	damage.value = damage.value * 0.2
+	return damage
+
 func _left(_new_state : State):
 	player.is_blocking = false
 
@@ -21,7 +25,12 @@ func state_physics(delta: float) -> void:
 	velocity += player.get_gravity()/2.0 * delta
 
 	velocity = lerp(velocity, Vector2.ZERO, 20.0 *delta)
-	player.look_at(player.enemy.position)
+
+	player.rotation = rotate_toward(
+		player.rotation,
+		player.global_position.angle_to_point(player.enemy.global_position),
+		delta * 1.0
+	)
 
 	player.velocity = velocity
 	player.direction = direction

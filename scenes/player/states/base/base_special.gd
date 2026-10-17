@@ -1,6 +1,7 @@
 extends SpecialPart
 
 var time_spent := 0.0
+var already_hit := false
 
 func _left(_new_state : State):
 	player.fist_area_l.monitoring = false
@@ -25,12 +26,23 @@ func _entered(_old_state : State):
 			player.fist_area_l.monitoring = true
 	)
 
+	player.fist_area_l.body_entered.connect(on_area_hit)
+	player.fist_area_r.body_entered.connect(on_area_hit)
+
+
 	# Small blend time so the punch does not get its first frames eaten.
 	anim_player.speed_scale = 0.7
 	anim_player.play("default/punch" + ("_r"), 0.05)
 
-	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT).set_parallel(true)
 	tween.tween_property(player.skeleton, "scale", Vector2.ONE * 2.0, 0.2)
+	tween.tween_method(func (_p:bool) : player.look_at(player.enemy.global_position), true, true, 0.2)
+
+func on_area_hit(body: Node2D) -> void:
+	if body == player.enemy and not already_hit:
+		var damage := Damage.new(20.0, [Damage.DamageFlags.ABSOLUTE])
+		player.enemy.hit(damage)
+		already_hit = true
 
 func state_input(_event: InputEvent) -> void: pass
 
@@ -52,7 +64,6 @@ func state_physics(delta: float) -> void:
 		velocity = direction * player.SPEED * 0.2
 	else:
 		velocity = lerp(velocity, Vector2.ZERO, 8.0 *delta)
-	player.look_at(player.enemy.position)
 
 	player.velocity = velocity
 	player.direction = direction
