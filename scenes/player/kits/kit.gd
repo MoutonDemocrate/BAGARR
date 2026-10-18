@@ -6,6 +6,9 @@ class_name Kit
 @export_multiline("A quick description of the kit.")
 var kit_desc : String			= "This should not appear. Make a bug report."
 @export var special_name : String		= "This Should Not Appear !"
+@export var font: Font
+@export var color_bright: Color
+@export var color_dark: Color
 
 @export var mechanic : Script
 @export var block : Script

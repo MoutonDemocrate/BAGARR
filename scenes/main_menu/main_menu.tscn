@@ -1,0 +1,176 @@
+[gd_scene format=3 uid="uid://cqgfwnri38rjb"]
+
+[ext_resource type="Script" uid="uid://dsxmtbf0ew26p" path="res://scenes/main_menu/main_menu.gd" id="1_fsom3"]
+[ext_resource type="FontFile" uid="uid://d0226ylxybcer" path="res://assets/fonts/dracutaz/Dracutaz.otf" id="2_0ebjn"]
+
+[sub_resource type="Gradient" id="Gradient_0ebjn"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0ebjn"]
+gradient = SubResource("Gradient_0ebjn")
+width = 19
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Curve" id="Curve_3ovsr"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 110.14491), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_wem23"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 185.50723), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_5seab"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8)
+colors = PackedColorArray(0.95686275, 0.35686275, 0.4117647, 1, 0.9647059, 0.9098039, 0.91764706, 1, 0.13, 0.051999994, 0.0832, 1, 0.41, 0, 0.006833229, 1, 0.95, 0.07599998, 0.07599998, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GDScript" id="GDScript_0ebjn"]
+resource_name = "BounceAroundLabel"
+script/source = "@tool
+extends Label
+
+var time := 0.0
+
+@export var angle_max := 15.0
+@export var rect_max := Vector2(70.0,20.0)
+
+@export var mult_scale := 1.2 :
+	set(new) :
+		mult_scale = new
+		offset_transform_scale = Vector2.ONE * new
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	time += delta
+	offset_transform_position = Vector2(
+		sin(TAU*time * 0.82910) * rect_max.x,
+		cos(TAU*time * 0.9287392873) * rect_max.y,
+	)
+	offset_transform_rotation = sin(TAU*time / 2.5784) * deg_to_rad(angle_max)
+"
+
+[node name="MainMenu" type="MarginContainer" unique_id=443430837 node_paths=PackedStringArray("title_label", "short_desc_label", "long_desc_label", "classic_button", "custom_button", "settings_button", "quit_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+script = ExtResource("1_fsom3")
+title_label = NodePath("CenterContainer/VBoxContainer/Label")
+short_desc_label = NodePath("CenterContainer/VBoxContainer/HBoxContainer/VBoxDescr/ShortDescLabel")
+long_desc_label = NodePath("CenterContainer/VBoxContainer/HBoxContainer/VBoxDescr/LongDescLabel")
+classic_button = NodePath("CenterContainer/VBoxContainer/HBoxContainer/VBoxButtons/ClassicMode")
+custom_button = NodePath("CenterContainer/VBoxContainer/HBoxContainer/VBoxButtons/CustomMode")
+settings_button = NodePath("CenterContainer/VBoxContainer/HBoxContainer/VBoxButtons/Settings")
+quit_button = NodePath("CenterContainer/VBoxContainer/HBoxContainer/VBoxButtons/QuitGame")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1619689604]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1141967574]
+layout_mode = 2
+theme_override_constants/separation = 90
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CenterContainer/VBoxContainer" unique_id=1871241971]
+z_index = -7
+position = Vector2(725.29846, 111.594635)
+rotation = -0.03252683
+scale = Vector2(1.18, 1.18)
+amount = 1000
+texture = SubResource("GradientTexture2D_0ebjn")
+lifetime = 6.0
+preprocess = 5.0
+randomness = 0.18
+draw_order = 1
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 247.31
+initial_velocity_max = 382.71
+radial_accel_min = 37.63
+radial_accel_max = 97.85
+radial_accel_curve = SubResource("Curve_3ovsr")
+tangential_accel_max = 9.67
+tangential_accel_curve = SubResource("Curve_wem23")
+scale_amount_min = 0.8
+scale_amount_max = 1.2
+color_initial_ramp = SubResource("Gradient_5seab")
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=245661114]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(64.0498, 9.216472)
+offset_transform_scale = Vector2(1.18, 1.18)
+offset_transform_rotation = 0.2428719
+offset_transform_visual_only = false
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 33
+theme_override_fonts/font = ExtResource("2_0ebjn")
+theme_override_font_sizes/font_size = 235
+text = "BAGARR!"
+script = SubResource("GDScript_0ebjn")
+rect_max = Vector2(70, 19.71)
+mult_scale = 1.18
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=2132509835]
+custom_minimum_size = Vector2(1500, 0)
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="VBoxButtons" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=853171124]
+custom_minimum_size = Vector2(525, 0)
+custom_maximum_size = Vector2(525, -1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+theme_override_constants/separation = 45
+
+[node name="ClassicMode" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxButtons" unique_id=1977403606]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "Classic"
+
+[node name="CustomMode" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxButtons" unique_id=1908111874]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "Custom"
+
+[node name="Settings" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxButtons" unique_id=1011882867]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "Settings"
+
+[node name="QuitGame" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxButtons" unique_id=2033561471]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "Quit"
+
+[node name="VBoxDescr" type="VBoxContainer" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1235070695]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShortDescLabel" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxDescr" unique_id=694661804]
+layout_mode = 2
+theme_override_font_sizes/font_size = 90
+text = "Just the classics."
+vertical_alignment = 2
+
+[node name="LongDescLabel" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer/VBoxDescr" unique_id=1052649714]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Player with the regular character kits, and punch your way to victory.
+
+Easy, balanced, simple."
+autowrap_mode = 3

@@ -39,6 +39,10 @@ folder_colors={
 "res://shader/": "pink"
 }
 
+[gui]
+
+theme/custom="uid://dlp4actdw4naf"
+
 [input]
 
 p1_up={
@@ -133,4 +137,5 @@ rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
 anti_aliasing/quality/msaa_2d=3
 anti_aliasing/quality/use_debanding=true
+environment/defaults/default_clear_color=Color(0.06, 0.023999998, 0.0384, 1)
 anti_aliasing/quality/screen_space_aa=1

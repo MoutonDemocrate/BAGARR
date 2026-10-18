@@ -39,6 +39,15 @@ func get_new_zoom() -> Vector2 :
 func special(player:Player, _special_name: String = "Not Implemented") -> void:
 	self.autonomous = false
 	special_label.text = _special_name
+	if player.kit.font :
+		special_label.add_theme_font_override("font", player.kit.font)
+	if player.kit.color_bright :
+		special_label.add_theme_color_override("font_color", player.kit.color_bright)
+	if player.kit.color_dark :
+		special_label.add_theme_constant_override("outline_size", 16)
+		special_label.add_theme_color_override("font_outline_color", player.kit.color_dark)
+
+
 	var tween := create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 	tween.set_ignore_time_scale(true)

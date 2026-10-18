@@ -1,0 +1,56 @@
+[gd_resource type="Theme" format=3 uid="uid://dlp4actdw4naf"]
+
+[ext_resource type="FontFile" uid="uid://c70v8sb3pcpyt" path="res://assets/fonts/nyakare/Nyakare-OTF.otf" id="1_qew4h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o54fn"]
+content_margin_left = 20.0
+content_margin_top = 15.0
+content_margin_right = 20.0
+content_margin_bottom = 15.0
+bg_color = Color(0.13, 0.051999994, 0.0832, 1)
+border_width_left = 20
+border_width_top = 8
+border_width_right = 20
+border_width_bottom = 8
+border_color = Color(0.95, 0.07599998, 0.07599998, 1)
+corner_radius_top_left = 40
+corner_radius_bottom_right = 40
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8imle"]
+content_margin_left = 20.0
+content_margin_top = 15.0
+content_margin_right = 20.0
+content_margin_bottom = 15.0
+bg_color = Color(0.13, 0.051999994, 0.0832, 1)
+border_width_left = 20
+border_width_top = 8
+border_width_right = 20
+border_width_bottom = 8
+border_color = Color(0.41, 0, 0.006833229, 1)
+corner_radius_top_left = 40
+corner_radius_bottom_right = 40
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qew4h"]
+content_margin_left = 20.0
+content_margin_top = 15.0
+content_margin_right = 20.0
+content_margin_bottom = 15.0
+bg_color = Color(0.13, 0.051999994, 0.0832, 1)
+border_width_left = 20
+border_width_top = 8
+border_width_right = 20
+border_width_bottom = 8
+border_color = Color(0.95686275, 0.35686275, 0.4117647, 1)
+corner_radius_top_left = 40
+corner_radius_bottom_right = 40
+corner_detail = 1
+
+[resource]
+default_font = ExtResource("1_qew4h")
+default_font_size = 30
+Button/colors/font_color = Color(0.9647059, 0.9098039, 0.91764706, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_o54fn")
+Button/styles/normal = SubResource("StyleBoxFlat_8imle")
+Button/styles/pressed = SubResource("StyleBoxFlat_qew4h")
