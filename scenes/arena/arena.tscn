@@ -20,14 +20,14 @@ modifications/0 = SubResource("SkeletonModification2D_75vfm")
 held_modification_stack = SubResource("SkeletonModificationStack2D_0owmy")
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_5gtgg"]
-target_nodepath = NodePath("../IKTargetL")
+target_nodepath = NodePath("IKTargetL")
 joint_one_bone_idx = 2
 joint_one_bone2d_node = NodePath("base/arm_l")
 joint_two_bone_idx = 3
 joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_h17s1"]
-target_nodepath = NodePath("../IKTargetLR")
+target_nodepath = NodePath("IKTargetLR")
 flip_bend_direction = true
 joint_one_bone_idx = 5
 joint_one_bone2d_node = NodePath("base/arm_r")

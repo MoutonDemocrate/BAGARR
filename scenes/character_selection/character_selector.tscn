@@ -16,21 +16,21 @@ modifications/0 = SubResource("SkeletonModification2D_3icnq")
 held_modification_stack = SubResource("SkeletonModificationStack2D_n5vam")
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_6t2ya"]
-target_nodepath = NodePath("../IKTargetL")
+target_nodepath = NodePath("IKTargetL")
 joint_one_bone_idx = 2
 joint_one_bone2d_node = NodePath("base/arm_l")
 joint_two_bone_idx = 3
 joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_uxhgv"]
-target_nodepath = NodePath("../IKTargetLR")
+target_nodepath = NodePath("IKTargetLR")
 flip_bend_direction = true
 joint_one_bone_idx = 5
 joint_one_bone2d_node = NodePath("base/arm_r")
 joint_two_bone_idx = 6
 joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_10hmh"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_lsunf"]
 resource_local_to_scene = true
 enabled = true
 modification_count = 3
@@ -81,4 +81,8 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="Skeleton2D" parent="VBoxContainer/CharacterContainer/CenterContainer/SkinAnchor" unique_id=767322670 instance=ExtResource("2_lsunf")]
-modification_stack = SubResource("SkeletonModificationStack2D_10hmh")
+modification_stack = SubResource("SkeletonModificationStack2D_lsunf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CharacterContainer" unique_id=426046122]
+layout_mode = 2
+size_flags_horizontal = 3
