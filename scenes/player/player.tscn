@@ -1,379 +1,42 @@
 [gd_scene format=3 uid="uid://bevegj2ynep6w"]
 
-[ext_resource type="Texture2D" uid="uid://dqy1ifa2yk6o5" path="res://assets/skins/skin__Default_default.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dslhuit36t3ck" path="res://scenes/player/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://coayu5hofkf30" path="res://scenes/player/skeleton.tscn" id="2_p47bc"]
 [ext_resource type="Script" uid="uid://d0dppemmdwx3v" path="res://scenes/player/bone_stretch_2d.gd" id="2_qek5x"]
 [ext_resource type="Script" uid="uid://dfkks3kkmpuwj" path="res://addons/Mouton_FSM/classes/PhysicsMachine.gd" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://q7hu6ywxmyka" path="res://scenes/player/states/idle.gd" id="4_lvxji"]
 
-[sub_resource type="Animation" id="Animation_qhqgy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../IKTargetL:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(168, -185)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../IKTargetLR:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(168, 185)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("base/arm_l/forearm_l:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -185)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("base/arm_l/forearm_l/fist_l:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(168, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("base/arm_r/forearm_r:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 185)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("base/arm_r/forearm_r/fist_r:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(168, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqkch"]
-_data = {
-&"RESET": SubResource("Animation_qhqgy")
-}
-
-[sub_resource type="Animation" id="Animation_dqkch"]
-resource_name = "block"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../IKTargetL:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.46672714),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(173, -76), Vector2(159, -74)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../IKTargetLR:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.61045635),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(173, 70), Vector2(159, 72)]
-}
-
-[sub_resource type="Animation" id="Animation_p47bc"]
-resource_name = "dodge"
-length = 5.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../IKTargetL:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.009999752, 0.17000008, 0.35000002, 1.0633334, 2.3327978, 4.88),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(36, -324), Vector2(-90, -306), Vector2(36, -324), Vector2(36, -324), Vector2(-90, -306), Vector2(-3, -211)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../IKTargetLR:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.009999752, 0.17000008, 0.35000002, 1.0633334, 2.3327978, 4.88),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(58, 319), Vector2(-67, 284), Vector2(58, 319), Vector2(58, 319), Vector2(-67, 284), Vector2(0, 194)]
-}
-
-[sub_resource type="Animation" id="Animation_g2els"]
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../IKTargetL:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.12945154, 0.5, 0.62480026),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(207, -186), Vector2(174.83032, -207), Vector2(148, -187), Vector2(178.11986, -168)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../IKTargetLR:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.13333334, 0.5, 0.62500006),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(148, 187), Vector2(158.34904, 167), Vector2(207, 186), Vector2(199.65337, 206)]
-}
-
-[sub_resource type="Animation" id="Animation_75vfm"]
-resource_name = "punch1"
-length = 0.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../IKTargetL:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.072499245, 0.13862194, 0.26666668, 0.6666667),
-"transitions": PackedFloat32Array(1, 1, 1, 0.13777271, 1),
-"update": 0,
-"values": [Vector2(168, -185), Vector2(-44, -170), Vector2(-44, -170), Vector2(600, 0), Vector2(600, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../IKTargetLR:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.072499245, 0.13862194, 0.2652789, 0.6641538),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(168, 185), Vector2(186, 143), Vector2(186, 143), Vector2(116, 152), Vector2(116, 152)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("base/arm_l/forearm_l:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.13333334, 0.26666668, 0.6666667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, -185), Vector2(-1.2632605e-05, -289.00034), Vector2(-1.2632605e-05, -289.00034), Vector2(0, -185)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("base/arm_l/forearm_l/fist_l:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.13333334, 0.26666668, 0.6666667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(168, 0), Vector2(317.96222, -5.404683e-07), Vector2(317.96222, -5.404683e-07), Vector2(168, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_0owmy"]
-resource_name = "punch2"
-length = 0.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../IKTargetL:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.072499275, 0.13862193, 0.26666668, 0.6666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(168, -185), Vector2(186, -143), Vector2(186, -143), Vector2(116, -152), Vector2(116, -152)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../IKTargetLR:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.072499245, 0.13862194, 0.26666668, 0.6666667),
-"transitions": PackedFloat32Array(1, 1, 1, 0.17075492, 1),
-"update": 0,
-"values": [Vector2(168, 185), Vector2(-44, 170), Vector2(-44, 170), Vector2(600, 0), Vector2(600, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("base/arm_r/forearm_r:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.13333334, 0.26666668, 0.6666667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 185), Vector2(0, 289), Vector2(0, 289), Vector2(0, 185)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("base/arm_r/forearm_r/fist_r:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.13333334, 0.26666668, 0.6666667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(168, 0), Vector2(311.0268, 1.2632888e-05), Vector2(311.0268, 1.2632888e-05), Vector2(168, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_qek5x"]
-resource_name = "special"
-length = 0.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../IKTargetL:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.072499275, 0.13862193, 0.26666668, 0.6666667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(168, -185), Vector2(186, -143), Vector2(186, -143), Vector2(116, -152), Vector2(116, -152)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../IKTargetLR:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.072499245, 0.13862194, 0.26666668, 0.6666667),
-"transitions": PackedFloat32Array(1, 1, 1, 0.17075492, 1),
-"update": 0,
-"values": [Vector2(168, 185), Vector2(-44, 170), Vector2(-44, 170), Vector2(800, 0), Vector2(800, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("base/arm_r/forearm_r:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.13333334, 0.26666668, 0.6666667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 185), Vector2(0, 289), Vector2(0, 289), Vector2(0, 185)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("base/arm_r/forearm_r/fist_r:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.13333334, 0.26666668, 0.6666667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(168, 0), Vector2(311.0268, 1.2632888e-05), Vector2(311.0268, 1.2632888e-05), Vector2(168, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
-_data = {
-&"block": SubResource("Animation_dqkch"),
-&"dodge": SubResource("Animation_p47bc"),
-&"idle": SubResource("Animation_g2els"),
-&"punch_l": SubResource("Animation_75vfm"),
-&"punch_r": SubResource("Animation_0owmy"),
-&"special": SubResource("Animation_qek5x")
-}
-
-[sub_resource type="SkeletonModification2D" id="SkeletonModification2D_0owmy"]
+[sub_resource type="SkeletonModification2D" id="SkeletonModification2D_75vfm"]
 script = ExtResource("2_qek5x")
 metadata/_custom_type_script = "uid://d0dppemmdwx3v"
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_qek5x"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_0owmy"]
 modification_count = 2
-modifications/0 = SubResource("SkeletonModification2D_0owmy")
+modifications/0 = SubResource("SkeletonModification2D_75vfm")
 
-[sub_resource type="SkeletonModification2DStackHolder" id="SkeletonModification2DStackHolder_0owmy"]
-held_modification_stack = SubResource("SkeletonModificationStack2D_qek5x")
+[sub_resource type="SkeletonModification2DStackHolder" id="SkeletonModification2DStackHolder_qek5x"]
+held_modification_stack = SubResource("SkeletonModificationStack2D_0owmy")
 
-[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_qhqgy"]
-target_nodepath = NodePath("../IKTargetL")
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_5gtgg"]
 joint_one_bone_idx = 2
 joint_one_bone2d_node = NodePath("base/arm_l")
 joint_two_bone_idx = 3
 joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
 
-[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_g2els"]
-target_nodepath = NodePath("../IKTargetLR")
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_h17s1"]
 flip_bend_direction = true
 joint_one_bone_idx = 5
 joint_one_bone2d_node = NodePath("base/arm_r")
 joint_two_bone_idx = 6
 joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_dqkch"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_p47bc"]
 resource_local_to_scene = true
 enabled = true
 modification_count = 3
-modifications/0 = SubResource("SkeletonModification2DStackHolder_0owmy")
-modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_qhqgy")
-modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_g2els")
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_nmxr4"]
-radius = 80.363525
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0owmy"]
-radius = 80.363525
+modifications/0 = SubResource("SkeletonModification2DStackHolder_qek5x")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_5gtgg")
+modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_h17s1")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_br48t"]
 radius = 111.0
@@ -381,121 +44,25 @@ radius = 111.0
 [node name="Player" type="CharacterBody2D" unique_id=1400576666 node_paths=PackedStringArray("fsm", "anim_player", "skeleton", "target_ik_l", "target_ik_r", "fist_area_l", "fist_area_r")]
 script = ExtResource("1_g2els")
 fsm = NodePath("PhysicsMachine")
-anim_player = NodePath("AnimationPlayer")
-skeleton = NodePath("Skeleton2D")
-target_ik_l = NodePath("IKTargetL")
-target_ik_r = NodePath("IKTargetLR")
-fist_area_l = NodePath("Skeleton2D/base/arm_l/forearm_l/fist_l/Area2DFistL")
-fist_area_r = NodePath("Skeleton2D/base/arm_r/forearm_r/fist_r/Area2DFistR")
+anim_player = NodePath("Skeleton/AnimationPlayer")
+skeleton = NodePath("Skeleton")
+target_ik_l = NodePath("Skeleton/IKTargetL")
+target_ik_r = NodePath("Skeleton/IKTargetLR")
+fist_area_l = NodePath("Skeleton/base/arm_l/forearm_l/fist_l/Area2DFistL")
+fist_area_r = NodePath("Skeleton/base/arm_r/forearm_r/fist_r/Area2DFistR")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1790934149]
-root_node = NodePath("../Skeleton2D")
-libraries/ = SubResource("AnimationLibrary_dqkch")
-libraries/default = SubResource("AnimationLibrary_qhqgy")
-
-[node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=1726939152]
-modification_stack = SubResource("SkeletonModificationStack2D_dqkch")
-
-[node name="base" type="Bone2D" parent="Skeleton2D" unique_id=1713961161]
-rest = Transform2D(1, 0, 0, 1, 0, 0)
-
-[node name="head" type="Bone2D" parent="Skeleton2D/base" unique_id=149041665]
-rest = Transform2D(1, 0, 0, 1, 0, 0)
-auto_calculate_length_and_angle = false
-length = 100.0
-bone_angle = 0.0
-
-[node name="Sprite2DHead" type="Sprite2D" parent="Skeleton2D/base/head" unique_id=1272022881]
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_3vyb7")
-region_enabled = true
-region_rect = Rect2(0, 3, 608, 608)
-region_filter_clip_enabled = true
-
-[node name="arm_l" type="Bone2D" parent="Skeleton2D/base" unique_id=985990871]
-rest = Transform2D(1, 0, 0, 1, 0, 0)
-metadata/_local_pose_override_enabled_ = true
-
-[node name="forearm_l" type="Bone2D" parent="Skeleton2D/base/arm_l" unique_id=317959600]
-position = Vector2(0, -185)
-rotation = -1.5707964
-scale = Vector2(0.9999931, 0.9999931)
-rest = Transform2D(1, 0, 0, 1, 0, -185)
-metadata/_local_pose_override_enabled_ = true
-
-[node name="Sprite2DJointL" type="Sprite2D" parent="Skeleton2D/base/arm_l/forearm_l" unique_id=434274778]
-position = Vector2(0, -1.000008)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_3vyb7")
-region_enabled = true
-region_rect = Rect2(1197, 14, 240, 240)
-region_filter_clip_enabled = true
-
-[node name="fist_l" type="Bone2D" parent="Skeleton2D/base/arm_l/forearm_l" unique_id=934795041]
-position = Vector2(168, 0)
-rest = Transform2D(1, 0, 0, 1, 168, 0)
-
-[node name="Sprite2DFistL" type="Sprite2D" parent="Skeleton2D/base/arm_l/forearm_l/fist_l" unique_id=1834415772]
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_3vyb7")
-region_enabled = true
-region_rect = Rect2(725, 0, 365, 364)
-region_filter_clip_enabled = true
-
-[node name="Area2DFistL" type="Area2D" parent="Skeleton2D/base/arm_l/forearm_l/fist_l" unique_id=550416795]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton2D/base/arm_l/forearm_l/fist_l/Area2DFistL" unique_id=379705501]
-shape = SubResource("CircleShape2D_nmxr4")
-
-[node name="arm_r" type="Bone2D" parent="Skeleton2D/base" unique_id=1410894329]
-rest = Transform2D(1, 0, 0, 1, 0, 0)
-metadata/_local_pose_override_enabled_ = true
-
-[node name="forearm_r" type="Bone2D" parent="Skeleton2D/base/arm_r" unique_id=893445723]
-position = Vector2(0, 185)
-rotation = 1.5707965
-scale = Vector2(0.9999756, 0.9999756)
-rest = Transform2D(1, 0, 0, 1, 0, 185)
-metadata/_local_pose_override_enabled_ = true
-
-[node name="Sprite2DJointR" type="Sprite2D" parent="Skeleton2D/base/arm_r/forearm_r" unique_id=917376005]
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_3vyb7")
-region_enabled = true
-region_rect = Rect2(1197, 14, 240, 240)
-region_filter_clip_enabled = true
-
-[node name="fist_r" type="Bone2D" parent="Skeleton2D/base/arm_r/forearm_r" unique_id=659146733]
-position = Vector2(168, 0)
-rest = Transform2D(1, 0, 0, 1, 168, 0)
-
-[node name="Sprite2DFistR" type="Sprite2D" parent="Skeleton2D/base/arm_r/forearm_r/fist_r" unique_id=356892203]
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("1_3vyb7")
-region_enabled = true
-region_rect = Rect2(725, 0, 365, 364)
-region_filter_clip_enabled = true
-
-[node name="Area2DFistR" type="Area2D" parent="Skeleton2D/base/arm_r/forearm_r/fist_r" unique_id=1259278595]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton2D/base/arm_r/forearm_r/fist_r/Area2DFistR" unique_id=1973136966]
-shape = SubResource("CircleShape2D_0owmy")
+[node name="Skeleton" parent="." unique_id=767322670 instance=ExtResource("2_p47bc")]
+modification_stack = SubResource("SkeletonModificationStack2D_p47bc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=505335021]
 shape = SubResource("CircleShape2D_br48t")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
-[node name="IKTargetL" type="Marker2D" parent="." unique_id=995641759]
-position = Vector2(168, -185)
-
-[node name="IKTargetLR" type="Marker2D" parent="." unique_id=1206220807]
-position = Vector2(168, 185)
-
 [node name="PhysicsMachine" type="Node" parent="." unique_id=984943277 node_paths=PackedStringArray("player", "anim_player", "skeleton", "default_state")]
 script = ExtResource("3_gmlin")
 player = NodePath("..")
-anim_player = NodePath("../AnimationPlayer")
-skeleton = NodePath("../Skeleton2D")
+anim_player = NodePath("../Skeleton/AnimationPlayer")
+skeleton = NodePath("../Skeleton")
 default_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://dfkks3kkmpuwj"
 
@@ -504,3 +71,5 @@ script = ExtResource("4_lvxji")
 metadata/_custom_type_script = "uid://q7hu6ywxmyka"
 
 [connection signal="ready" from="PhysicsMachine" to="PhysicsMachine" method="on_ready"]
+
+[editable path="Skeleton"]

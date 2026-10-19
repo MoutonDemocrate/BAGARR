@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cqgfwnri38rjb"]
 
 [ext_resource type="Script" uid="uid://dsxmtbf0ew26p" path="res://scenes/main_menu/main_menu.gd" id="1_fsom3"]
+[ext_resource type="Theme" uid="uid://dlp4actdw4naf" path="res://assets/default_theme.tres" id="1_ob46e"]
 [ext_resource type="FontFile" uid="uid://d0226ylxybcer" path="res://assets/fonts/dracutaz/Dracutaz.otf" id="2_0ebjn"]
 
 [sub_resource type="Gradient" id="Gradient_0ebjn"]
@@ -60,6 +61,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_ob46e")
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
@@ -110,9 +112,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 offset_transform_enabled = true
-offset_transform_position = Vector2(64.0498, 9.216472)
+offset_transform_position = Vector2(-15.869945, 16.555962)
 offset_transform_scale = Vector2(1.18, 1.18)
-offset_transform_rotation = 0.2428719
+offset_transform_rotation = -0.19600563
 offset_transform_visual_only = false
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 33

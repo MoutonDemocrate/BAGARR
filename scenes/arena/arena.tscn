@@ -4,17 +4,29 @@
 [ext_resource type="Script" uid="uid://dq04ixhqvnnuk" path="res://scenes/arena/arena.gd" id="1_jx0ua"]
 [ext_resource type="Script" uid="uid://hhoferg6cl0b" path="res://scenes/arena/arena_camera.gd" id="2_5tue2"]
 [ext_resource type="Shader" uid="uid://bglc0kf54ejpl" path="res://shader/arena.gdshader" id="3_5tue2"]
+[ext_resource type="Script" uid="uid://d0dppemmdwx3v" path="res://scenes/player/bone_stretch_2d.gd" id="3_u52cf"]
 [ext_resource type="Script" uid="uid://qiok42li5a3g" path="res://scenes/arena/grid_rect.gd" id="4_aj7ud"]
 [ext_resource type="PackedScene" uid="uid://bdsc1k6sio47u" path="res://scenes/arena/arena_ui_layer.tscn" id="5_asdgj"]
 
-[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_e05a3"]
+[sub_resource type="SkeletonModification2D" id="SkeletonModification2D_75vfm"]
+script = ExtResource("3_u52cf")
+metadata/_custom_type_script = "uid://d0dppemmdwx3v"
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_0owmy"]
+modification_count = 2
+modifications/0 = SubResource("SkeletonModification2D_75vfm")
+
+[sub_resource type="SkeletonModification2DStackHolder" id="SkeletonModification2DStackHolder_qek5x"]
+held_modification_stack = SubResource("SkeletonModificationStack2D_0owmy")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_5gtgg"]
 target_nodepath = NodePath("../IKTargetL")
 joint_one_bone_idx = 2
 joint_one_bone2d_node = NodePath("base/arm_l")
 joint_two_bone_idx = 3
 joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
 
-[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_wl4x5"]
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_h17s1"]
 target_nodepath = NodePath("../IKTargetLR")
 flip_bend_direction = true
 joint_one_bone_idx = 5
@@ -22,12 +34,13 @@ joint_one_bone2d_node = NodePath("base/arm_r")
 joint_two_bone_idx = 6
 joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_jx0ua"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_ii07k"]
 resource_local_to_scene = true
 enabled = true
-modification_count = 2
-modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_e05a3")
-modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_wl4x5")
+modification_count = 3
+modifications/0 = SubResource("SkeletonModification2DStackHolder_qek5x")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_5gtgg")
+modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_h17s1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8trdl"]
 shader = ExtResource("3_5tue2")
@@ -72,16 +85,8 @@ side_p2 = NodePath("UILayer/SideP2")
 position = Vector2(-1500, 0)
 enemy = NodePath("../Player2")
 
-[node name="Skeleton2D" parent="Player1" index="1" unique_id=1726939152]
-modification_stack = SubResource("SkeletonModificationStack2D_jx0ua")
-
-[node name="forearm_l" parent="Player1/Skeleton2D/base/arm_l" parent_id_path=PackedInt32Array(1400576666, 985990871) index="0" unique_id=317959600]
-rotation = -2.0821942e-06
-scale = Vector2(0.9999978, 0.9999978)
-
-[node name="forearm_r" parent="Player1/Skeleton2D/base/arm_r" parent_id_path=PackedInt32Array(1400576666, 1410894329) index="0" unique_id=893445723]
-rotation = 2.1139806e-06
-scale = Vector2(0.9999978, 0.9999978)
+[node name="Skeleton" parent="Player1" index="0" unique_id=767322670]
+modification_stack = SubResource("SkeletonModificationStack2D_ii07k")
 
 [node name="Player2" parent="." unique_id=929681214 node_paths=PackedStringArray("enemy") instance=ExtResource("1_8trdl")]
 position = Vector2(1500, 0)

@@ -4,7 +4,7 @@ extends Machine
 ## Switches through mutiple PhysicsState (as children of the machine)
 class_name PhysicsMachine
 
-@export var player : Player
+@export var player : Player 
 @export var anim_player : AnimationPlayer
 @export var skeleton : Skeleton2D
 
