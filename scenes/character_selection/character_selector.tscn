@@ -2,7 +2,24 @@
 
 [ext_resource type="Theme" uid="uid://dlp4actdw4naf" path="res://assets/default_theme.tres" id="1_3jlw5"]
 [ext_resource type="PackedScene" uid="uid://coayu5hofkf30" path="res://scenes/player/skeleton.tscn" id="2_lsunf"]
+[ext_resource type="Script" uid="uid://bxjgiw80mgg3o" path="res://scenes/character_selection/character_selector.gd" id="2_y1d5i"]
 [ext_resource type="Script" uid="uid://d0dppemmdwx3v" path="res://scenes/player/bone_stretch_2d.gd" id="3_y1d5i"]
+[ext_resource type="Texture2D" uid="uid://b5dyt522u34pa" path="res://icon.svg" id="5_3icnq"]
+[ext_resource type="FontFile" uid="uid://d0226ylxybcer" path="res://assets/fonts/dracutaz/Dracutaz.otf" id="5_n5vam"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_br48t"]
+bg_color = Color(0.95686275, 0.35686275, 0.4117647, 1)
+border_width_left = 50
+border_width_top = 50
+border_width_right = 50
+border_width_bottom = 50
+border_color = Color(0.96, 0.3552, 0.40560013, 0)
+border_blend = true
+corner_radius_top_left = 75
+corner_radius_top_right = 75
+corner_radius_bottom_right = 75
+corner_radius_bottom_left = 75
+corner_detail = 10
 
 [sub_resource type="SkeletonModification2D" id="SkeletonModification2D_3icnq"]
 script = ExtResource("3_y1d5i")
@@ -30,7 +47,7 @@ joint_one_bone2d_node = NodePath("base/arm_r")
 joint_two_bone_idx = 6
 joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_lsunf"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_3icnq"]
 resource_local_to_scene = true
 enabled = true
 modification_count = 3
@@ -38,13 +55,22 @@ modifications/0 = SubResource("SkeletonModification2DStackHolder_q26g5")
 modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_6t2ya")
 modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_uxhgv")
 
-[node name="CharacterSelector" type="MarginContainer" unique_id=1359990195]
+[node name="CharacterSelector" type="MarginContainer" unique_id=1359990195 node_paths=PackedStringArray("top_label", "left_label", "right_label", "tagline_label", "skin_achor", "skeleton", "anim_player")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_behavior_recursive = 1
 theme = ExtResource("1_3jlw5")
+script = ExtResource("2_y1d5i")
+top_label = NodePath("VBoxContainer/SelectorContainer/HBoxContainer/CharacterLabel")
+left_label = NodePath("VBoxContainer/SelectorContainer/HBoxContainer/LabelLeft")
+right_label = NodePath("VBoxContainer/SelectorContainer/HBoxContainer/LabelRight")
+tagline_label = NodePath("VBoxContainer/CharacterContainer/VBoxContainer/TaglineLabel")
+skin_achor = NodePath("VBoxContainer/CharacterContainer/MarginContainer/CenterContainer/SkinAnchor")
+skeleton = NodePath("VBoxContainer/CharacterContainer/MarginContainer/CenterContainer/SkinAnchor/Skeleton2D")
+anim_player = NodePath("VBoxContainer/CharacterContainer/MarginContainer/CenterContainer/SkinAnchor/Skeleton2D/AnimationPlayer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1260640879]
 layout_mode = 2
@@ -73,16 +99,43 @@ text = "►"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/CharacterContainer" unique_id=2041511488]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/CharacterContainer" unique_id=951243908]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
 
-[node name="SkinAnchor" type="Control" parent="VBoxContainer/CharacterContainer/CenterContainer" unique_id=1418484829]
+[node name="Panel" type="Panel" parent="VBoxContainer/CharacterContainer/MarginContainer" unique_id=118987633]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_br48t")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/CharacterContainer/MarginContainer" unique_id=1072100638]
 layout_mode = 2
 
-[node name="Skeleton2D" parent="VBoxContainer/CharacterContainer/CenterContainer/SkinAnchor" unique_id=767322670 instance=ExtResource("2_lsunf")]
-modification_stack = SubResource("SkeletonModificationStack2D_lsunf")
+[node name="SkinAnchor" type="Control" parent="VBoxContainer/CharacterContainer/MarginContainer/CenterContainer" unique_id=1418484829]
+layout_mode = 2
+
+[node name="Skeleton2D" parent="VBoxContainer/CharacterContainer/MarginContainer/CenterContainer/SkinAnchor" unique_id=767322670 instance=ExtResource("2_lsunf")]
+position = Vector2(-75.369, 0)
+modification_stack = SubResource("SkeletonModificationStack2D_3icnq")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CharacterContainer" unique_id=426046122]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="TaglineLabel" type="Label" parent="VBoxContainer/CharacterContainer/VBoxContainer" unique_id=1968053062]
+layout_mode = 2
+text = "Tagline"
+
+[node name="FinalButton" type="Button" parent="VBoxContainer" unique_id=801494574]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_n5vam")
+button_mask = 0
+text = "Ready!!!"
+icon = ExtResource("5_3icnq")
