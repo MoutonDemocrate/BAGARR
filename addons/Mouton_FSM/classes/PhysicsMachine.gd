@@ -8,6 +8,9 @@ class_name PhysicsMachine
 @export var anim_player : AnimationPlayer
 @export var skeleton : Skeleton2D
 
+func _print_new_state(old_state : State, new_state : State) -> void:
+	print("P" ,player.p, " : %s -> %s" % [old_state.name, new_state.name])
+
 func machine_input(event: InputEvent) -> void:
 	current_state.state_input(event)
 

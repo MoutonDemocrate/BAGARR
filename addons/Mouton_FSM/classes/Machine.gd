@@ -32,13 +32,17 @@ func refetch_states() -> void :
 func change_state(new_state : State) -> State :
 	var old_state : State = current_state
 	current_state = new_state
-	print("State changed from ",old_state.name ," to ",new_state.name)
 	old_state.left(new_state)
 	old_state.state_left.emit()
+	_print_new_state(old_state, new_state)
 	state_changed.emit(old_state, new_state)
 	new_state.entered(old_state)
 	new_state.state_entered.emit()
 	return current_state
+
+## Prints new state
+func _print_new_state(old_state : State, new_state : State) -> void:
+	print("State changed from ",old_state.name ," to ",new_state.name)
 
 ## Get a state from a string
 func get_state_from_name(state_name : String) -> State :
