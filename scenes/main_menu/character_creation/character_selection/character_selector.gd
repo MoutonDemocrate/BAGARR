@@ -9,6 +9,9 @@ class_name CharacterSelector
 @export var right_label: Label
 
 @export var tagline_label: Label
+@export var description_label: Label
+
+@export var confirm_button: Button
 
 @export var skin_achor: Control
 @export var skeleton: Skeleton2D
@@ -19,6 +22,17 @@ var kit_id: int = 0 :
 	set(new) :
 		kit_id = new % len(kits)
 
+var lock := false
+
+func is_confirmed() -> bool:
+	return confirm_button.button_pressed
+	
+func confirmed_kit() -> Kit:
+	if not is_confirmed():
+		return null
+	else :
+		return kits[kit_id]
+
 func _ready() -> void:
 	anim_player.play("default/idle")
 	set_kit(kits[kit_id])
@@ -27,12 +41,18 @@ func set_kit(kit:Kit) -> void:
 	print(self, " switching to kit : %s" % kit.kit_name)
 	top_label.text = kit.kit_name
 	top_label.add_theme_font_override("font", kit.font)
-	tagline_label.text = kit.kit_desc
+	
+	tagline_label.text = kit.kit_tagline
+	description_label.text = kit.kit_desc
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("p&_left".replace('&',str(p))) :
+	if lock:
+		return
+	if event.is_action_pressed("p&_left".replace('&',str(p))) and not is_confirmed():
 		kit_id -= 1
 		set_kit(kits[kit_id])
-	if event.is_action_pressed("p&_right".replace('&',str(p))) :
+	if event.is_action_pressed("p&_right".replace('&',str(p))) and not is_confirmed():
 		kit_id += 1
 		set_kit(kits[kit_id])
+	if event.is_action_pressed("p&_punch".replace('&',str(p))) :
+		confirm_button.button_pressed = !confirm_button.button_pressed

@@ -3,9 +3,11 @@ class_name Kit
 
 @export var id : StringName		= &"ERROR"
 @export var kit_name : String	= "ERROR"
+@export_multiline("Tagline...")
+var kit_tagline: String 		= "You should not see this, make a bug report."
 @export_multiline("A quick description of the kit.")
 var kit_desc : String			= "This should not appear. Make a bug report."
-@export var special_name : String		= "This Should Not Appear !"
+@export var special_name:String	= "This Should Not Appear !"
 @export var font: Font
 @export var color_bright: Color
 @export var color_dark: Color

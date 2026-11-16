@@ -3,26 +3,30 @@
 [ext_resource type="Texture2D" uid="uid://dqy1ifa2yk6o5" path="res://assets/skins/skin__Default_default.png" id="2_5cbhw"]
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_3q3tq"]
+resource_local_to_scene = true
 target_nodepath = NodePath("IKTargetL")
 joint_one_bone_idx = 2
 joint_one_bone2d_node = NodePath("base/arm_l")
 joint_two_bone_idx = 3
 joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
+editor/draw_gizmo = false
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_poujq"]
+resource_local_to_scene = true
 target_nodepath = NodePath("IKTargetLR")
 flip_bend_direction = true
 joint_one_bone_idx = 5
 joint_one_bone2d_node = NodePath("base/arm_r")
 joint_two_bone_idx = 6
 joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
+editor/draw_gizmo = false
 
 [sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_fap1k"]
 resource_local_to_scene = true
 enabled = true
-modification_count = 3
-modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_3q3tq")
-modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_poujq")
+modification_count = 2
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_3q3tq")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_poujq")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nmxr4"]
 radius = 80.363525
@@ -419,7 +423,7 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="forearm_r" type="Bone2D" parent="base/arm_r" unique_id=76329016]
 position = Vector2(0, 185)
-rotation = 2.226035e-05
+rotation = 2.2141141e-05
 scale = Vector2(0.9999756, 0.9999756)
 rest = Transform2D(1, 0, 0, 1, 0, 185)
 metadata/_local_pose_override_enabled_ = true

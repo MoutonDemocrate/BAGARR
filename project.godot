@@ -12,13 +12,14 @@ config_version=5
 
 config/name="BAGARR"
 config/version="0.1"
-run/main_scene="uid://j0uivafog0jf"
+run/main_scene="uid://cqgfwnri38rjb"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 SceneTransition="*uid://cmhu8vvd14qs5"
+MatchInfo="*uid://bubtdcu5agung"
 
 [display]
 

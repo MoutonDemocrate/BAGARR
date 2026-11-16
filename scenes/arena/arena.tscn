@@ -34,7 +34,7 @@ joint_one_bone2d_node = NodePath("base/arm_r")
 joint_two_bone_idx = 6
 joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_ii07k"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_u52cf"]
 resource_local_to_scene = true
 enabled = true
 modification_count = 3
@@ -86,7 +86,7 @@ position = Vector2(-1500, 0)
 enemy = NodePath("../Player2")
 
 [node name="Skeleton" parent="Player1" index="0" unique_id=767322670]
-modification_stack = SubResource("SkeletonModificationStack2D_ii07k")
+modification_stack = SubResource("SkeletonModificationStack2D_u52cf")
 
 [node name="Player2" parent="." unique_id=929681214 node_paths=PackedStringArray("enemy") instance=ExtResource("1_8trdl")]
 position = Vector2(1500, 0)
@@ -171,4 +171,5 @@ player = NodePath("../../Player1")
 player = NodePath("../../Player2")
 
 [editable path="Player1"]
+[editable path="Player1/Skeleton"]
 [editable path="UILayer"]

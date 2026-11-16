@@ -2,41 +2,32 @@
 
 [ext_resource type="Script" uid="uid://dslhuit36t3ck" path="res://scenes/player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://coayu5hofkf30" path="res://scenes/player/skeleton.tscn" id="2_p47bc"]
-[ext_resource type="Script" uid="uid://d0dppemmdwx3v" path="res://scenes/player/bone_stretch_2d.gd" id="2_qek5x"]
 [ext_resource type="Script" uid="uid://dfkks3kkmpuwj" path="res://addons/Mouton_FSM/classes/PhysicsMachine.gd" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://q7hu6ywxmyka" path="res://scenes/player/states/idle.gd" id="4_lvxji"]
 
-[sub_resource type="SkeletonModification2D" id="SkeletonModification2D_75vfm"]
-script = ExtResource("2_qek5x")
-metadata/_custom_type_script = "uid://d0dppemmdwx3v"
-
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_0owmy"]
-modification_count = 2
-modifications/0 = SubResource("SkeletonModification2D_75vfm")
-
-[sub_resource type="SkeletonModification2DStackHolder" id="SkeletonModification2DStackHolder_qek5x"]
-held_modification_stack = SubResource("SkeletonModificationStack2D_0owmy")
-
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_5gtgg"]
+resource_local_to_scene = true
+target_nodepath = NodePath("IKTargetL")
 joint_one_bone_idx = 2
 joint_one_bone2d_node = NodePath("base/arm_l")
 joint_two_bone_idx = 3
 joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
 
 [sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_h17s1"]
+resource_local_to_scene = true
+target_nodepath = NodePath("IKTargetLR")
 flip_bend_direction = true
 joint_one_bone_idx = 5
 joint_one_bone2d_node = NodePath("base/arm_r")
 joint_two_bone_idx = 6
 joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_p47bc"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_lvxji"]
 resource_local_to_scene = true
 enabled = true
-modification_count = 3
-modifications/0 = SubResource("SkeletonModification2DStackHolder_qek5x")
-modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_5gtgg")
-modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_h17s1")
+modification_count = 2
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_5gtgg")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_h17s1")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_br48t"]
 radius = 111.0
@@ -52,7 +43,7 @@ fist_area_l = NodePath("Skeleton/base/arm_l/forearm_l/fist_l/Area2DFistL")
 fist_area_r = NodePath("Skeleton/base/arm_r/forearm_r/fist_r/Area2DFistR")
 
 [node name="Skeleton" parent="." unique_id=767322670 instance=ExtResource("2_p47bc")]
-modification_stack = SubResource("SkeletonModificationStack2D_p47bc")
+modification_stack = SubResource("SkeletonModificationStack2D_lvxji")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=505335021]
 shape = SubResource("CircleShape2D_br48t")

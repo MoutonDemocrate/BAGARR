@@ -18,7 +18,8 @@ func _ready() -> void:
 	custom_button.focus_entered.connect(update_descs.bind(custom_button))
 	settings_button.focus_entered.connect(update_descs.bind(settings_button))
 	quit_button.focus_entered.connect(update_descs.bind(quit_button))
-
+	
+	classic_button.pressed.connect(SceneTransition.change_scene.bind("res://scenes/main_menu/character_creation/CharacterSelection.tscn"))
 	quit_button.pressed.connect(get_tree().root.free)
 
 

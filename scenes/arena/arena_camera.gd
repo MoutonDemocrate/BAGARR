@@ -36,9 +36,11 @@ func get_new_zoom() -> Vector2 :
 		zoom_mult *= (1.0 + (0.5 - distance))
 	return zoom_mult
 
-func special(player:Player, _special_name: String = "Not Implemented") -> void:
+func special(player:Player) -> void:
 	self.autonomous = false
-	special_label.text = _special_name
+	MatchInfo.special_animation_in_progress = true
+	
+	special_label.text = player.kit.special_name
 	if player.kit.font :
 		special_label.add_theme_font_override("font", player.kit.font)
 	if player.kit.color_bright :
@@ -64,8 +66,10 @@ func special(player:Player, _special_name: String = "Not Implemented") -> void:
 	tween.tween_property(self, "zoom", get_new_zoom(), 0.5)
 	tween.tween_property(self, "global_position", get_player_center(), 0.5)
 	tween.tween_property(special_effects, "modulate", Color.TRANSPARENT, 0.2)
+	
 	autonomous = true
-
+	MatchInfo.special_animation_in_progress = false
+	
 	return
 
 func _process(delta: float) -> void:

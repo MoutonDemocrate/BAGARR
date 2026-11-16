@@ -77,11 +77,11 @@ func _physics_process(delta: float) -> void:
 	fsm.machine_physics(delta)
 
 func use_special() -> void:
-	if special_gauge != 100.0 :
+	if special_gauge != 100.0 or MatchInfo.special_animation_in_progress :
 		return
 
 	fsm.change_state_from_name("Special")
-	uses_special.emit(self, kit.special_name)
+	uses_special.emit(self)
 
 func hit(damage:Damage) -> Damage.ReceivedStatus :
 	if Damage.DamageFlags.PURE in damage.flags :

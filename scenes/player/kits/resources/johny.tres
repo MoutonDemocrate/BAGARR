@@ -12,7 +12,8 @@
 script = ExtResource("1_28gcc")
 id = &"johny"
 kit_name = "Johny Bagarre"
-kit_desc = "No tricks, no tactics, no nothing. Fight like you mean it."
+kit_tagline = "No tricks, no tactics, no nothing. Fight like you mean it."
+kit_desc = "Johny is an all-rounder, never exceptional, always reliable. His kit is self-descriptive in most aspects."
 special_name = "Johny's Big Punch"
 font = ExtResource("3_jmkee")
 color_bright = Color(0.95, 0.07599998, 0.07599998, 1)
