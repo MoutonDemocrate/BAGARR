@@ -42,13 +42,24 @@ signal special_gauge_changed(old:float, new:float)
 signal player_dead
 
 signal uses_special(player:Player, special_name:String)
+signal blocked_damage(damage:Damage)
+signal dodged_damage(damage:Damage)
+signal ignored_damage(damage:Damage)
 
 const SPEED = 800.0
 
+var is_punching : bool = false
 var is_dodging : bool = false
 var is_blocking : bool = false
+var is_invicible : bool = false
 
 var direction : Vector2
+
+static func create(idx:int, kitx:Kit) -> Player:
+	var player: Player = Player.new()
+	player.p = idx
+	player.kit = kitx
+	return player
 
 func _ready() -> void:
 	block_part = kit.get_block()
@@ -84,34 +95,79 @@ func use_special() -> void:
 	uses_special.emit(self)
 
 func hit(damage:Damage) -> Damage.ReceivedStatus :
-	if Damage.DamageFlags.PURE in damage.flags :
-		health -= damage.value
-		return Damage.ReceivedStatus.TAKEN
-
+	var og_damage := Damage.new(
+		damage.value,
+		damage.stun_mult,
+		damage.flags
+	)
+	
+	var parsed_damage = mechanic.parse_damage(damage)
+	if parsed_damage is int :
+		print("P%s : Parsed damage is ReceivedStatus, returning." % [str(p)])
+		return parsed_damage
+	elif parsed_damage is Damage :
+		damage = parsed_damage
+	
+	var health_taken := damage.value * mechanic.armor
+	var status := Damage.ReceivedStatus.TAKEN
+	
 	if Damage.DamageFlags.ABSOLUTE in damage.flags :
-		health -= damage.value * mechanic.armor
-		return Damage.ReceivedStatus.TAKEN
+		if Damage.DamageFlags.PURE in damage.flags :
+			health_taken = damage.value
+			status = Damage.ReceivedStatus.TAKEN
+		else :
+			health_taken = damage.value * mechanic.armor
+			status = Damage.ReceivedStatus.TAKEN
+	
+	elif is_invicible :
+		health_taken = 0
+		status = Damage.ReceivedStatus.IGNORED
+	
+	elif Damage.DamageFlags.PURE in damage.flags :
+		health_taken = damage.value
+		status = Damage.ReceivedStatus.TAKEN
 
-	if is_blocking :
+	elif is_blocking :
 		damage = block_part.blocked_damage(damage)
 		if Damage.DamageFlags.IGNORES_BLOCK in damage.flags :
-			health -= damage.value * mechanic.armor
-			return Damage.ReceivedStatus.TAKEN
+			health_taken = damage.value * mechanic.armor
+			status = Damage.ReceivedStatus.TAKEN
 		else :
-			health -= damage.value * mechanic.armor
-			return Damage.ReceivedStatus.BLOCKED
+			health_taken = damage.value * mechanic.armor
+			status = Damage.ReceivedStatus.BLOCKED
 
-	if is_dodging :
+	elif is_dodging :
 		damage = dodge_part.dodged_damage(damage)
 		if Damage.DamageFlags.IGNORES_DODGE in damage.flags :
-			health -= damage.value * mechanic.armor
-			return Damage.ReceivedStatus.TAKEN
+			health_taken = damage.value * mechanic.armor
+			status = Damage.ReceivedStatus.TAKEN
 		else :
-			health -= damage.value * mechanic.armor
-			return Damage.ReceivedStatus.DODGED
+			health_taken = damage.value * mechanic.armor
+			status = Damage.ReceivedStatus.DODGED
 
-	health -= damage.value * mechanic.armor
-	return Damage.ReceivedStatus.TAKEN
+	if health_taken != 0 : health -= health_taken
+	if status == Damage.ReceivedStatus.TAKEN and damage.stun_mult != 0.0 :
+		fsm.get_state_from_name("Stun").stun_mult = damage.stun_mult
+		fsm.change_state_from_name("Stun")
+	match status :
+		Damage.ReceivedStatus.BLOCKED:
+			blocked_damage.emit()
+		Damage.ReceivedStatus.DODGED:
+			dodged_damage.emit()
+		Damage.ReceivedStatus.IGNORED:
+			ignored_damage.emit()
+	print("Hit for %s dmg by %s -> %s (%s)" % [
+		health_taken, 
+		str(og_damage),
+		Damage.str_status(status),
+		Time.get_time_string_from_system()])
+	return status
+
+func activate_l_fist(monitor:=true) :
+	fist_area_l.monitoring = monitor
+
+func activate_r_fist(monitor:=true) :
+	fist_area_r.monitoring = monitor
 
 func reset() -> void:
 	health = mechanic.max_health

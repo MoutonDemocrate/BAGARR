@@ -1,46 +1,10 @@
 [gd_scene format=3 uid="uid://du2cipcel4p31"]
 
-[ext_resource type="PackedScene" uid="uid://bevegj2ynep6w" path="res://scenes/player/player.tscn" id="1_8trdl"]
 [ext_resource type="Script" uid="uid://dq04ixhqvnnuk" path="res://scenes/arena/arena.gd" id="1_jx0ua"]
 [ext_resource type="Script" uid="uid://hhoferg6cl0b" path="res://scenes/arena/arena_camera.gd" id="2_5tue2"]
 [ext_resource type="Shader" uid="uid://bglc0kf54ejpl" path="res://shader/arena.gdshader" id="3_5tue2"]
-[ext_resource type="Script" uid="uid://d0dppemmdwx3v" path="res://scenes/player/bone_stretch_2d.gd" id="3_u52cf"]
 [ext_resource type="Script" uid="uid://qiok42li5a3g" path="res://scenes/arena/grid_rect.gd" id="4_aj7ud"]
 [ext_resource type="PackedScene" uid="uid://bdsc1k6sio47u" path="res://scenes/arena/arena_ui_layer.tscn" id="5_asdgj"]
-
-[sub_resource type="SkeletonModification2D" id="SkeletonModification2D_75vfm"]
-script = ExtResource("3_u52cf")
-metadata/_custom_type_script = "uid://d0dppemmdwx3v"
-
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_0owmy"]
-modification_count = 2
-modifications/0 = SubResource("SkeletonModification2D_75vfm")
-
-[sub_resource type="SkeletonModification2DStackHolder" id="SkeletonModification2DStackHolder_qek5x"]
-held_modification_stack = SubResource("SkeletonModificationStack2D_0owmy")
-
-[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_5gtgg"]
-target_nodepath = NodePath("IKTargetL")
-joint_one_bone_idx = 2
-joint_one_bone2d_node = NodePath("base/arm_l")
-joint_two_bone_idx = 3
-joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
-
-[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_h17s1"]
-target_nodepath = NodePath("IKTargetLR")
-flip_bend_direction = true
-joint_one_bone_idx = 5
-joint_one_bone2d_node = NodePath("base/arm_r")
-joint_two_bone_idx = 6
-joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
-
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_u52cf"]
-resource_local_to_scene = true
-enabled = true
-modification_count = 3
-modifications/0 = SubResource("SkeletonModification2DStackHolder_qek5x")
-modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_5gtgg")
-modifications/2 = SubResource("SkeletonModification2DTwoBoneIK_h17s1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8trdl"]
 shader = ExtResource("3_5tue2")
@@ -66,8 +30,8 @@ repeat = 2
 
 [node name="Arena" type="Node2D" unique_id=281390857 node_paths=PackedStringArray("p1", "p2", "p1_start_pos", "p2_start_pos", "camera", "ui_layer", "ui_anim_player", "round_label", "round_number_label", "round_end", "re_character_label", "re_player_label", "side_p1", "side_p2")]
 script = ExtResource("1_jx0ua")
-p1 = NodePath("Player1")
-p2 = NodePath("Player2")
+p1 = NodePath("")
+p2 = NodePath("")
 p1_start_pos = NodePath("P1StartPos")
 p2_start_pos = NodePath("P2StartPos")
 camera = NodePath("Camera2D")
@@ -81,19 +45,6 @@ re_player_label = NodePath("UILayer/CenterContainer/RoundEnd/Player")
 side_p1 = NodePath("UILayer/SideP1")
 side_p2 = NodePath("UILayer/SideP2")
 
-[node name="Player1" parent="." unique_id=1400576666 node_paths=PackedStringArray("enemy") instance=ExtResource("1_8trdl")]
-position = Vector2(-1500, 0)
-enemy = NodePath("../Player2")
-
-[node name="Skeleton" parent="Player1" index="0" unique_id=767322670]
-modification_stack = SubResource("SkeletonModificationStack2D_u52cf")
-
-[node name="Player2" parent="." unique_id=929681214 node_paths=PackedStringArray("enemy") instance=ExtResource("1_8trdl")]
-position = Vector2(1500, 0)
-rotation = 3.1415927
-p = 2
-enemy = NodePath("../Player1")
-
 [node name="P1StartPos" type="Marker2D" parent="." unique_id=227442143]
 position = Vector2(-1500, 0)
 
@@ -103,8 +54,8 @@ position = Vector2(1500, 0)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=572263051 node_paths=PackedStringArray("p1", "p2", "special_effects", "special_label")]
 zoom = Vector2(0.5, 0.5)
 script = ExtResource("2_5tue2")
-p1 = NodePath("../Player1")
-p2 = NodePath("../Player2")
+p1 = NodePath("")
+p2 = NodePath("")
 special_effects = NodePath("CanvasLayer/SpecialEffects")
 special_label = NodePath("CanvasLayer/SpecialEffects/SpecialLabel")
 
@@ -165,11 +116,9 @@ autowrap_mode = 3
 follow_viewport_enabled = false
 
 [node name="SideP1" parent="UILayer" index="0" unique_id=45441193 node_paths=PackedStringArray("player")]
-player = NodePath("../../Player1")
+player = NodePath("")
 
 [node name="SideP2" parent="UILayer" index="1" unique_id=1414005011 node_paths=PackedStringArray("player")]
-player = NodePath("../../Player2")
+player = NodePath("")
 
-[editable path="Player1"]
-[editable path="Player1/Skeleton"]
 [editable path="UILayer"]

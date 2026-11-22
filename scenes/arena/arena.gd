@@ -1,15 +1,12 @@
 extends Node2D
 class_name Arena
 
-@export_group("Game Settings")
-@export var number_of_rounds : int = 3
-
 @export_group("Nodes")
 @export var p1 : Player
 @export var p2 : Player
 @export var p1_start_pos : Marker2D
 @export var p2_start_pos : Marker2D
-@export var camera : Camera2D
+@export var camera : ArenaCamera
 
 @export_subgroup("UI")
 @export var ui_layer : CanvasLayer
@@ -23,10 +20,20 @@ class_name Arena
 @export var side_p2 : PlayerSide
 
 var round_number : int = 0
+var p1_victories := 0
+var p2_victories := 0
 
 signal player_dead(p:Player)
 
 func _ready() -> void:
+	p1 = Player.create(1, MatchInfo.p1_kit)
+	p2 = Player.create(2, MatchInfo.p2_kit)
+	add_child(p1)
+	add_child(p2)
+	
+	camera.p1 = p1
+	camera.p2 = p2
+	
 	p1.player_dead.connect(player_dead.emit.bind(p1))
 	p2.player_dead.connect(player_dead.emit.bind(p2))
 	p1.global_position = p1_start_pos.global_position
@@ -36,9 +43,12 @@ func _ready() -> void:
 	side_p2.hide()
 
 	await set_loop()
+	
+	SceneTransition.change_scene.bind("res://scenes/main_menu/main_menu.tscn")
 
 func set_loop() -> void:
-	while round_number < number_of_rounds :
+	Music.play_from_path("res://assets/sounds/music/battle_theme.tres")
+	while round_number < MatchInfo.round_total :
 		round_number_label.text = str(round_number + 1)
 		ui_anim_player.play("round_start")
 		await ui_anim_player.animation_finished
@@ -50,7 +60,12 @@ func set_loop() -> void:
 		side_p1.hide()
 		side_p2.hide()
 		re_character_label.text = "Johny Bagarr"
-		re_player_label.text = "Player 2" if dead.p == 1 else "Player 1"
+		if dead.p == 2 :
+			re_player_label.text = "Player 1"
+			p1_victories += 1
+		else :
+			re_player_label.text = "Player 2"
+			p2_victories += 1
 		ui_anim_player.play("round_end")
 		await ui_anim_player.animation_finished
 		round_number += 1

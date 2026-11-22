@@ -12,6 +12,8 @@ class_name MainMenu
 @export var quit_button: Button
 
 func _ready() -> void:
+	Music.play_from_path("res://assets/sounds/music/main_menu.tres")
+	
 	classic_button.grab_focus()
 
 	classic_button.focus_entered.connect(update_descs.bind(classic_button))

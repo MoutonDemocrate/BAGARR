@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamInteractive" format=3 uid="uid://ds24pv5tc4f8q"]
+
+[ext_resource type="AudioStream" uid="uid://c6agwffjnocsl" path="res://assets/sounds/music/Battle.Intro.ogg" id="1_feamh"]
+[ext_resource type="AudioStream" uid="uid://bqbg7w5ur8kub" path="res://assets/sounds/music/Battle.Loop.ogg" id="2_q3lkn"]
+
+[resource]
+clip_count = 2
+clip_0/name = &"Battle.intro"
+clip_0/stream = ExtResource("1_feamh")
+clip_0/auto_advance = 1
+clip_0/next_clip = 1
+clip_1/name = &"Battle.loop"
+clip_1/stream = ExtResource("2_q3lkn")
+clip_1/auto_advance = 0

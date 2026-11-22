@@ -5,28 +5,54 @@ var time_spent : float = 0.0
 var flip : bool = false
 
 var punch_next : bool = false
+var last_punch : float = 0
+var consecutive_punches : int = 0
+var banned : bool :
+	get() :
+		return Time.get_unix_time_from_system() - ban_time <= 1.5
+		
+var ban_time : float = 0
 
 func _left(_new_state : State):
+	player.is_punching = false
+	if banned : return
+	last_punch = Time.get_unix_time_from_system()
 	player.fist_area_l.monitoring = false
 	player.fist_area_r.monitoring = false
 	if anim_player.animation_finished.is_connected(_on_animation_finished) :
 		anim_player.animation_finished.disconnect(_on_animation_finished)
+	player.fist_area_l.body_entered.disconnect(on_area_hit)
+	player.fist_area_r.body_entered.disconnect(on_area_hit)
+	
+	anim_player.play("RESET_ARMS")
 
 func _entered(_old_state : State):
+	if banned :
+		machine.change_state_from_name("Idle")
+		print("BANNED")
+		return
+	
+	if last_punch != 0 and Time.get_unix_time_from_system() - last_punch <= 0.5 :
+		consecutive_punches += 1
+		print("Cons Punches : %s" % consecutive_punches)
+	elif Time.get_unix_time_from_system() - last_punch > 0.5 :
+		consecutive_punches = 0
+		print("Reset consecutive punches")
+	
+	if consecutive_punches >= 4 :
+		ban_time = Time.get_unix_time_from_system()
+		machine.change_state_from_name("Idle")
+		consecutive_punches = 0
+		print("Too many punches ! Banned !")
+		return
+
 	time_spent = 0.0
 	punch_next = false
 	flip = !flip
+	player.is_punching = true
 
 	if not anim_player.animation_finished.is_connected(_on_animation_finished) :
 		anim_player.animation_finished.connect(_on_animation_finished)
-
-	get_tree().create_timer(0.3).timeout.connect(
-		func () :
-			if flip :
-				player.fist_area_r.monitoring = true
-			else:
-				player.fist_area_l.monitoring = true
-	)
 
 	player.fist_area_l.body_entered.connect(on_area_hit)
 	player.fist_area_r.body_entered.connect(on_area_hit)
@@ -37,7 +63,7 @@ func _entered(_old_state : State):
 
 func on_area_hit(body: Node2D) -> void:
 	if body == player.enemy :
-		var damage := Damage.new(10.0)
+		var damage := Damage.new(10.0, 1.0)
 		player.enemy.hit(damage)
 
 func state_input(_event: InputEvent) -> void: pass

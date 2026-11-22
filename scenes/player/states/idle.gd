@@ -40,7 +40,7 @@ func state_physics(delta: float) -> void:
 	player.rotation = lerp_angle(
 		player.rotation,
 		player.global_position.angle_to_point(player.enemy.global_position),
-		delta * 2.0
+		delta * player.mechanic.look_acceleration * 2.0
 	)
 
 	player.velocity = velocity

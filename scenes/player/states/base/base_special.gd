@@ -1,11 +1,11 @@
 extends SpecialPart
+class_name BaseSpecial
 
 var time_spent := 0.0
 var already_hit := false
 
 func _left(_new_state : State):
-	player.fist_area_l.monitoring = false
-	player.fist_area_r.monitoring = false
+	player.is_invicible = false
 	if anim_player.animation_finished.is_connected(_on_animation_finished) :
 		anim_player.animation_finished.disconnect(_on_animation_finished)
 
@@ -19,12 +19,8 @@ func _entered(_old_state : State):
 
 	if not anim_player.animation_finished.is_connected(_on_animation_finished) :
 		anim_player.animation_finished.connect(_on_animation_finished)
-
-	get_tree().create_timer(0.3).timeout.connect(
-		func () :
-			player.fist_area_r.monitoring = true
-			player.fist_area_l.monitoring = true
-	)
+	
+	player.is_invicible = true
 
 	player.fist_area_l.body_entered.connect(on_area_hit)
 	player.fist_area_r.body_entered.connect(on_area_hit)
@@ -32,7 +28,7 @@ func _entered(_old_state : State):
 
 	# Small blend time so the punch does not get its first frames eaten.
 	anim_player.speed_scale = 0.7
-	anim_player.play("default/punch" + ("_r"), 0.05)
+	anim_player.play("default/special", 0.05)
 
 	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT).set_parallel(true)
 	tween.tween_property(player.skeleton, "scale", Vector2.ONE * 2.0, 0.2)
@@ -40,7 +36,7 @@ func _entered(_old_state : State):
 
 func on_area_hit(body: Node2D) -> void:
 	if body == player.enemy and not already_hit:
-		var damage := Damage.new(20.0, [Damage.DamageFlags.ABSOLUTE])
+		var damage := Damage.new(20.0, 2.0, [Damage.DamageFlags.ABSOLUTE])
 		player.enemy.hit(damage)
 		already_hit = true
 

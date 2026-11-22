@@ -2,9 +2,17 @@ extends BlockPart
 class_name BaseBlock
 
 var time_spent : float = 0.0
+var blocked_times : int = 0
+var loss_timer : float = 3.0
 
 func blocked_damage(damage:Damage) -> Damage:
 	damage.value = damage.value * 0.2
+	if player.enemy.is_punching :
+		blocked_times += 1
+		loss_timer = 3.0
+	if blocked_times >= 3:
+		player.enemy.fsm.change_state_from_name("Stun")
+		blocked_times = 0
 	return damage
 
 func _left(_new_state : State):
@@ -37,6 +45,10 @@ func state_physics(delta: float) -> void:
 	player.move_and_slide()
 
 	time_spent += delta
+	if blocked_times :
+		loss_timer -= delta
+		if loss_timer <= 0.0 :
+			blocked_times = 0
 
 	if not Input.is_action_pressed(replace_p("p&_block")) :
 		machine.change_state_from_name("Idle")

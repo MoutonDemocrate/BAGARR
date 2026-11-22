@@ -20,7 +20,7 @@ corner_radius_bottom_right = 75
 corner_radius_bottom_left = 75
 corner_detail = 10
 
-[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_6t2ya"]
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_8bff8"]
 resource_local_to_scene = true
 target_nodepath = NodePath("IKTargetL")
 joint_one_bone_idx = 2
@@ -28,7 +28,7 @@ joint_one_bone2d_node = NodePath("base/arm_l")
 joint_two_bone_idx = 3
 joint_two_bone2d_node = NodePath("base/arm_l/forearm_l")
 
-[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_uxhgv"]
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_1jyix"]
 resource_local_to_scene = true
 target_nodepath = NodePath("IKTargetLR")
 flip_bend_direction = true
@@ -37,12 +37,12 @@ joint_one_bone2d_node = NodePath("base/arm_r")
 joint_two_bone_idx = 6
 joint_two_bone2d_node = NodePath("base/arm_r/forearm_r")
 
-[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_8bff8"]
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_7y8wh"]
 resource_local_to_scene = true
 enabled = true
 modification_count = 2
-modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_6t2ya")
-modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_uxhgv")
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_8bff8")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_1jyix")
 
 [node name="CharacterSelector" type="MarginContainer" unique_id=1359990195 node_paths=PackedStringArray("top_label", "left_label", "right_label", "tagline_label", "description_label", "confirm_button", "skin_achor", "skeleton", "anim_player")]
 anchors_preset = 15
@@ -113,7 +113,7 @@ layout_mode = 2
 [node name="Skeleton2D" parent="VBoxContainer/CharacterContainer/MarginContainer/CenterContainer/SkinAnchor" unique_id=767322670 instance=ExtResource("3_3tipv")]
 position = Vector2(-32, 0)
 scale = Vector2(0.5, 0.5)
-modification_stack = SubResource("SkeletonModificationStack2D_8bff8")
+modification_stack = SubResource("SkeletonModificationStack2D_7y8wh")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CharacterContainer" unique_id=426046122]
 layout_mode = 2

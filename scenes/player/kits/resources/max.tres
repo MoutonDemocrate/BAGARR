@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Kit" format=3 uid="uid://p20cpgpgvcja"]
+
+[ext_resource type="Script" uid="uid://rsfdm2htetm7" path="res://scenes/player/kits/kit.gd" id="1_bwl37"]
+[ext_resource type="Script" uid="uid://b0r1n3g4c2mbq" path="res://scenes/player/states/max/max_block.gd" id="1_nvjta"]
+[ext_resource type="Script" uid="uid://cdmxb61dpfio3" path="res://scenes/player/states/max/max_dodge.gd" id="2_khfan"]
+[ext_resource type="FontFile" uid="uid://bony6nrf03lps" path="res://assets/fonts/if/IF/If.ttf" id="3_jgpif"]
+[ext_resource type="Script" uid="uid://bndtpmwn3hnsl" path="res://scenes/player/states/max/max_mechanic.gd" id="4_ltuyg"]
+[ext_resource type="Script" uid="uid://plrhxai6pq0g" path="res://scenes/player/states/max/max_punch.gd" id="5_476eu"]
+[ext_resource type="Script" uid="uid://dfb3p46i35yft" path="res://scenes/player/states/max/max_special.gd" id="7_b7f6c"]
+
+[resource]
+script = ExtResource("1_bwl37")
+id = &"max"
+kit_name = "Max McAxe"
+kit_tagline = "If you're too quick to hit, you can't lose."
+kit_desc = "Max is a fast, quick-hitting brawler. Make use of his fast dodges and parries to move around your opponent and beat them before they beat you."
+special_name = "Overdrive"
+font = ExtResource("3_jgpif")
+color_bright = Color(1, 0.74448985, 0.36889505, 1)
+color_dark = Color(0.5559726, 0.30286774, 2.8878452e-07, 1)
+mechanic = ExtResource("4_ltuyg")
+block = ExtResource("1_nvjta")
+dodge = ExtResource("2_khfan")
+punch = ExtResource("5_476eu")
+special = ExtResource("7_b7f6c")
+metadata/_custom_type_script = "uid://rsfdm2htetm7"

@@ -15,6 +15,8 @@ func _ready() -> void:
 			if char_selector_p1.confirm_button.button_pressed and pressed :
 				both_players_ready()
 	)
+	if char_selector_p1.confirm_button.button_pressed and char_selector_p2.confirm_button.button_pressed :
+				both_players_ready()
 
 func both_players_ready() -> void:
 	char_selector_p1.lock = true

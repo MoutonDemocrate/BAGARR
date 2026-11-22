@@ -45,6 +45,15 @@ var time := 0.0
 		mult_scale = new
 		offset_transform_scale = Vector2.ONE * new
 
+var analyser_instance : AudioEffectSpectrumAnalyzerInstance
+var music_scale : Vector2 = Vector2.ZERO
+@export var music_smoothing := 1.0
+
+func _ready() -> void:
+	analyser_instance = AudioServer.get_bus_effect_instance(
+		AudioServer.get_bus_index(\"Music\"),
+		0)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	time += delta
@@ -53,6 +62,12 @@ func _process(delta: float) -> void:
 		cos(TAU*time * 0.9287392873) * rect_max.y,
 	)
 	offset_transform_rotation = sin(TAU*time / 2.5784) * deg_to_rad(angle_max)
+	if analyser_instance :
+		music_scale = music_scale.lerp(Vector2(
+			analyser_instance.get_magnitude_for_frequency_range(10000.0, 30000.0).x,
+			analyser_instance.get_magnitude_for_frequency_range(0.0,10.0).x
+		), music_smoothing * delta)
+		offset_transform_scale = Vector2.ONE + music_scale * Vector2(100.0,20.0)
 "
 
 [node name="MainMenu" type="MarginContainer" unique_id=443430837 node_paths=PackedStringArray("title_label", "short_desc_label", "long_desc_label", "classic_button", "custom_button", "settings_button", "quit_button")]
@@ -112,9 +127,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 offset_transform_enabled = true
-offset_transform_position = Vector2(64.04519, -19.025017)
-offset_transform_scale = Vector2(1.18, 1.18)
-offset_transform_rotation = -0.22897054
+offset_transform_position = Vector2(67.9309, 7.5109186)
+offset_transform_rotation = 0.26085156
 offset_transform_visual_only = false
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 33
@@ -124,6 +138,7 @@ text = "BAGARR!"
 script = SubResource("GDScript_0ebjn")
 rect_max = Vector2(70, 19.71)
 mult_scale = 1.18
+music_smoothing = 15.798
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=2132509835]
 custom_minimum_size = Vector2(1500, 0)

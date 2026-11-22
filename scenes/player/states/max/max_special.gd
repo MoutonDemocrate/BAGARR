@@ -1,0 +1,76 @@
+extends SpecialPart
+class_name MaxSpecial
+
+var time_spent := 0.0
+var already_hit := false
+
+func _left(_new_state : State):
+	player.is_invicible = false
+	if anim_player.animation_finished.is_connected(_on_animation_finished) :
+		anim_player.animation_finished.disconnect(_on_animation_finished)
+
+func _entered(_old_state : State):
+	if player.special_gauge < 100.0 :
+		machine.change_state_from_name("Idle")
+		return
+	else :
+		player.special_gauge = 0.0
+	time_spent = 0.0
+
+	if not anim_player.animation_finished.is_connected(_on_animation_finished) :
+		anim_player.animation_finished.connect(_on_animation_finished)
+	
+	player.is_invicible = true
+
+	player.fist_area_l.body_entered.connect(on_area_hit)
+	player.fist_area_r.body_entered.connect(on_area_hit)
+
+
+	# Small blend time so the punch does not get its first frames eaten.
+	anim_player.speed_scale = 0.7
+	anim_player.play("default/special", 0.05)
+
+	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT).set_parallel(true)
+	tween.tween_property(player.skeleton, "scale", Vector2.ONE * 2.0, 0.2)
+	tween.tween_method(func (_p:bool) : player.look_at(player.enemy.global_position), true, true, 0.2)
+
+func on_area_hit(body: Node2D) -> void:
+	if body == player.enemy and not already_hit:
+		var damage := Damage.new(20.0, 2.0, [Damage.DamageFlags.ABSOLUTE])
+		player.enemy.hit(damage)
+		already_hit = true
+
+func state_input(_event: InputEvent) -> void: pass
+
+func state_physics(delta: float) -> void:
+	var velocity := player.velocity
+	var direction := player.direction
+
+	# Add the gravity.
+	velocity += player.get_gravity() * delta
+
+	direction = Input.get_vector(
+		replace_p("p&_left"),
+		replace_p("p&_right"),
+		replace_p("p&_up"),
+		replace_p("p&_down")
+	)
+	#print("Player ",p," : ", direction)
+	if direction:
+		velocity = direction * player.SPEED * 0.2
+	else:
+		velocity = lerp(velocity, Vector2.ZERO, 8.0 *delta)
+
+	player.velocity = velocity
+	player.direction = direction
+	player.move_and_slide()
+
+	time_spent += delta
+
+func state_process(_delta: float) -> void: pass
+
+func _on_animation_finished(anim_name : StringName) -> void:
+	anim_player.speed_scale = 1.0
+	var tween := create_tween().set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(player.skeleton, "scale", Vector2.ONE, 0.2)
+	machine.change_state_from_name("Idle")

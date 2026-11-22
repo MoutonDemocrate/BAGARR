@@ -1,7 +1,16 @@
 extends Camera2D
+class_name ArenaCamera
 
-@export var p1 : Player
-@export var p2 : Player
+@export var p1 : Player :
+	set(np1) :
+		p1 = np1
+		if p1 :
+			p1.uses_special.connect(special)
+@export var p2 : Player :
+	set(np2) :
+		p2 = np2
+		if p2 :
+			p2.uses_special.connect(special)
 
 ## If true, the camera seeks the best area to be in and cover both players
 @export var autonomous: bool = true
@@ -14,9 +23,6 @@ const SPECIAL_TIME_SCALE := 0.1
 
 func _ready() -> void:
 	special_effects.modulate = Color.TRANSPARENT
-
-	p1.uses_special.connect(special)
-	p2.uses_special.connect(special)
 
 func get_player_center() -> Vector2 :
 	return p1.global_position + (p2.global_position - p1.global_position)/2.0
